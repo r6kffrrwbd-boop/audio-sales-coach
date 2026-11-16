@@ -88,6 +88,13 @@ Text alone cannot see laughter, breathing, pace, pitch or level, and only sees i
 timestamps are perfect. The audio pipeline misses questions without words. Both views are combined when
 transcription is installed.
 
+## 4b. Optional transcription (faster-whisper `small`, int8, CPU)
+
+| Recording | Result |
+|---|---|
+| Demo call, stereo, per-channel transcription | English words accurate (language p = 0.99 / 0.995); both client questions found with exact words; 30 s of transcription time for 101 s of audio (~40 s total analysis) |
+| Arabic/English code-switched call, mono | language detected `ar` (p = 0.90). English sentences correct. Arabic mostly recognisable but code-switched English inside Arabic was garbled ("قديش الـ price تبع الـ annual plan" became nonsense, "cancel" became "كنسل", one number became "كيلو متر"), and Whisper still marked every segment above the confidence thresholds - so the "reliable" flag does **not** catch code-switching errors. A word at a turn boundary leaked into the other speaker's turn. After adding mid-sentence Arabic interrogatives (قديش, شو, ...), both client questions were found. |
+
 ## 4. Real model-inference runs (timestamped output)
 
 See `examples/sample-report.md` for the full output of a real run on this machine, and the README for an excerpt.

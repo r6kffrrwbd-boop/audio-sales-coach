@@ -1,0 +1,1571 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "audio-sales-coach",
+    "version": "0.1.0",
+    "python": "3.12.13"
+  },
+  "report_id": "rpt-0d2c75642a7d",
+  "created_at": "2026-11-16T13:38:05Z",
+  "recording": {
+    "path": "/path/to/demo_call.wav",
+    "sha256": "537d1f0151f6562058e998407475c32456d1662a8f3b2aa886e759b22e778cc6",
+    "container": "wav",
+    "codec": "pcm_s16le",
+    "channels": 2,
+    "sample_rate": 16000,
+    "duration_s": 101.38,
+    "bit_rate": 512000,
+    "consent": "all-parties-consented",
+    "converted_audio": "decoded in memory only; no converted copy written"
+  },
+  "mode": "call",
+  "layout": {
+    "result": "separate_channels",
+    "detail": {
+      "frames_with_one_channel_dominant": 0.994,
+      "waveform_correlation_first_60s": -0.0,
+      "share_ch0_louder": 0.768,
+      "share_ch1_louder": 0.226
+    }
+  },
+  "methods": {
+    "energy": "RMS level per 25 ms frame, 10 ms hop, in dBFS (20*log10 rms)",
+    "pitch": "normalised autocorrelation pitch tracker, 40 ms frames, 10 ms hop, 70-400 Hz search, voiced when peak correlation >= 0.5, 5-frame median smoothing; octave errors are possible on compressed or noisy audio",
+    "pace": "estimated syllable rate: peaks of the smoothed 300-2500 Hz intensity contour with >= 1 dB prominence, >= 70 ms apart, inside speech (after de Jong & Wempe 2009); language-independent proxy, not a word count; on TTS test speech it correlates 0.83 with true syllable rate and under-counts very fast speech",
+    "pauses": "silence between speech segments of the same speaker, from the voice-activity detector",
+    "response_gap": "time from the end of one speaker's turn to the start of the other speaker's next turn",
+    "pitch_change": "median F0 of a turn in semitones relative to the same speaker's median F0 in this recording",
+    "energy_change": "median dB level of a turn relative to the same speaker's median level in this recording",
+    "voice_activity": "silero-vad (onnx, via sherpa-onnx)",
+    "speaker_turns": "per-channel voice activity (silero-vad (onnx, via sherpa-onnx))",
+    "events": {
+      "status": "ok",
+      "detector": "yamnet",
+      "model_file": "yamnet.h5",
+      "thresholds": {
+        "laughter": 0.25,
+        "breathing": 0.6,
+        "cough_throat": 0.35
+      },
+      "window_s": 0.96,
+      "hop_s": 0.48,
+      "speech_windows_share": 0.474
+    },
+    "transcription": {
+      "status": "ok",
+      "model": "faster-whisper small (int8, CPU)",
+      "per_channel": true,
+      "languages": {
+        "S1": [
+          "en",
+          0.989
+        ],
+        "S2": [
+          "en",
+          0.995
+        ]
+      },
+      "notes": []
+    },
+    "source_separation": "not used; all evidence refers to the original recording"
+  },
+  "reliability": {
+    "acoustic": {
+      "speech_to_background_db": {
+        "S1": 35.7,
+        "S2": 40.9
+      },
+      "noisy": false,
+      "low_bitrate_compression": false,
+      "statement": "adequate for level, pause and turn measurements"
+    },
+    "speaker_attribution": {
+      "level": "high (one speaker per channel)",
+      "uncertain_speech_share": 0.0
+    },
+    "transcription": {
+      "status": "ok",
+      "statement": "words are approximate; Lebanese Arabic and Arabic/English code-switching are often mis-transcribed"
+    },
+    "events": {
+      "status": "ok",
+      "statement": "laughter detection is moderately reliable; breathing detection is weak (see docs/evaluation.md)"
+    }
+  },
+  "speakers": [
+    {
+      "id": "S1",
+      "role": "salesperson",
+      "role_source": "user",
+      "turns": 5,
+      "talk_s": 72.1,
+      "talk_share": 0.803,
+      "mean_attribution_confidence": 0.95,
+      "channel": 1
+    },
+    {
+      "id": "S2",
+      "role": "client_in_this_call",
+      "role_source": "user",
+      "turns": 5,
+      "talk_s": 17.7,
+      "talk_share": 0.197,
+      "mean_attribution_confidence": 0.95,
+      "channel": 2
+    }
+  ],
+  "role_assignment": {
+    "status": "confident",
+    "source": "user",
+    "voice_id": null,
+    "how_to_assign": null,
+    "excerpts": []
+  },
+  "turns": [
+    {
+      "id": "turn-1",
+      "speaker": "S1",
+      "start": 1.03,
+      "end": 6.82,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 5.792,
+        "median_f0_hz": 114.7,
+        "f0_range_semitones": 6.99,
+        "voiced_fraction": 0.594,
+        "median_db": -22.0,
+        "syllable_rate_per_s": 4.49,
+        "syllable_count": 26
+      },
+      "pauses": [],
+      "words": "Hi, thanks for taking the time today. I wanted to walk you through our plan and see if it fits your team",
+      "words_reliable": true,
+      "topics": [],
+      "question_text": false,
+      "rising_end_st_per_s": -10.6
+    },
+    {
+      "id": "turn-2",
+      "speaker": "S2",
+      "start": 7.59,
+      "end": 10.12,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 2.528,
+        "median_f0_hz": 176.8,
+        "f0_range_semitones": 9.98,
+        "voiced_fraction": 0.708,
+        "median_db": -16.6,
+        "syllable_rate_per_s": 5.14,
+        "syllable_count": 13
+      },
+      "pauses": [],
+      "words": "Sure, we are looking at options for next quarter.",
+      "words_reliable": true,
+      "topics": [
+        "timeline"
+      ],
+      "question_text": false,
+      "rising_end_st_per_s": -13.2
+    },
+    {
+      "id": "turn-3",
+      "speaker": "S1",
+      "start": 10.69,
+      "end": 17.8,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 7.104,
+        "median_f0_hz": 114.7,
+        "f0_range_semitones": 7.97,
+        "voiced_fraction": 0.653,
+        "median_db": -20.8,
+        "syllable_rate_per_s": 4.08,
+        "syllable_count": 29
+      },
+      "pauses": [],
+      "words": "Great. Our standard package includes onboarding, weekly reporting in the mobile app, and most teams start on the annual plan",
+      "words_reliable": true,
+      "topics": [],
+      "question_text": false,
+      "rising_end_st_per_s": -9.9
+    },
+    {
+      "id": "turn-4",
+      "speaker": "S2",
+      "start": 18.6,
+      "end": 26.57,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": true,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 7.968,
+        "median_f0_hz": 185.0,
+        "f0_range_semitones": 4.45,
+        "voiced_fraction": 0.728,
+        "median_db": -16.1,
+        "syllable_rate_per_s": 4.52,
+        "syllable_count": 36
+      },
+      "pauses": [],
+      "words": "Okay, and how does the pricing work? Our budget is quite limited this year, so I need to understand the monthly cost, and whether we can start small?",
+      "words_reliable": true,
+      "topics": [
+        "price"
+      ],
+      "question_text": true,
+      "rising_end_st_per_s": 2.2
+    },
+    {
+      "id": "turn-5",
+      "speaker": "S1",
+      "start": 26.15,
+      "end": 31.37,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": true,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 5.216,
+        "median_f0_hz": 116.4,
+        "f0_range_semitones": 8.26,
+        "voiced_fraction": 0.515,
+        "median_db": -22.4,
+        "syllable_rate_per_s": 6.9,
+        "syllable_count": 36
+      },
+      "pauses": [],
+      "words": "So the annual plan is the best value. It is $1200 a year and that includes everything, onboarding, reporting, support, all of it, and you lock in the price",
+      "words_reliable": true,
+      "topics": [
+        "price"
+      ],
+      "question_text": false,
+      "rising_end_st_per_s": -30.2
+    },
+    {
+      "id": "turn-6",
+      "speaker": "S2",
+      "start": 34.57,
+      "end": 37.64,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 3.072,
+        "median_f0_hz": 173.0,
+        "f0_range_semitones": 3.93,
+        "voiced_fraction": 0.801,
+        "median_db": -15.1,
+        "syllable_rate_per_s": 5.21,
+        "syllable_count": 16
+      },
+      "pauses": [],
+      "words": "What are the cancellation terms if it does not work out for us?",
+      "words_reliable": true,
+      "topics": [
+        "contract_terms"
+      ],
+      "question_text": true,
+      "rising_end_st_per_s": -15.1
+    },
+    {
+      "id": "turn-7",
+      "speaker": "S1",
+      "start": 38.47,
+      "end": 89.89,
+      "segment_count": 4,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 51.424,
+        "median_f0_hz": 113.1,
+        "f0_range_semitones": 7.05,
+        "voiced_fraction": 0.631,
+        "median_db": -21.9,
+        "syllable_rate_per_s": 4.39,
+        "syllable_count": 226
+      },
+      "pauses": [
+        [
+          45.64,
+          48.71
+        ],
+        [
+          76.77,
+          77.09
+        ],
+        [
+          78.89,
+          79.17
+        ]
+      ],
+      "words": "Good question. You can cancel with 30 days notice and honestly, nobody has ever wanted to leave the reporting dashboard board. So let me explain how the contract works in detail. The agreement runs for 12 months from the start date, billing is monthly or annual, whichever you prefer, onboarding takes about 2 weeks, and we assign you a success manager. After the first quarter we review usage together and adjust the setup, reporting is delivered every Monday morning, support is available by chat and email during business hours, and urgent issues are handled the same day. We also run a training session for new staff every month and all of that is included in the plan If you add more users later, the price per seat stays the same and you can move between plans at renewal Most customers also connect their calendar and email which takes about 10 minutes Of",
+      "words_reliable": true,
+      "topics": [
+        "price",
+        "contract_terms",
+        "timeline",
+        "decision_process"
+      ],
+      "question_text": false,
+      "rising_end_st_per_s": -30.4
+    },
+    {
+      "id": "turn-8",
+      "speaker": "S2",
+      "start": 92.17,
+      "end": 95.27,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 3.104,
+        "median_f0_hz": 173.0,
+        "f0_range_semitones": 4.58,
+        "voiced_fraction": 0.865,
+        "median_db": -14.5,
+        "syllable_rate_per_s": 5.8,
+        "syllable_count": 18
+      },
+      "pauses": [],
+      "words": "I will need to check with my manager before we decide anything.",
+      "words_reliable": true,
+      "topics": [
+        "decision_process"
+      ],
+      "question_text": false,
+      "rising_end_st_per_s": -17.0
+    },
+    {
+      "id": "turn-9",
+      "speaker": "S1",
+      "start": 96.1,
+      "end": 98.66,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 2.56,
+        "median_f0_hz": 117.2,
+        "f0_range_semitones": 8.11,
+        "voiced_fraction": 0.641,
+        "median_db": -22.9,
+        "syllable_rate_per_s": 4.3,
+        "syllable_count": 11
+      },
+      "pauses": [],
+      "words": "course, when would be a good time to follow up",
+      "words_reliable": true,
+      "topics": [],
+      "question_text": false,
+      "rising_end_st_per_s": -12.0
+    },
+    {
+      "id": "turn-10",
+      "speaker": "S2",
+      "start": 99.59,
+      "end": 100.65,
+      "segment_count": 1,
+      "attribution_confidence": 0.95,
+      "uncertain": false,
+      "overlap": false,
+      "possible_overlap": false,
+      "stats": {
+        "duration_s": 1.056,
+        "median_f0_hz": 176.8,
+        "f0_range_semitones": 11.06,
+        "voiced_fraction": 0.594,
+        "median_db": -24.4,
+        "syllable_rate_per_s": 3.79,
+        "syllable_count": 4
+      },
+      "pauses": [],
+      "words": "Next week works.",
+      "words_reliable": true,
+      "topics": [
+        "timeline"
+      ],
+      "question_text": false,
+      "rising_end_st_per_s": -20.3
+    }
+  ],
+  "segments": [
+    {
+      "start": 1.03,
+      "end": 6.82,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 7.59,
+      "end": 10.12,
+      "speaker": "S2",
+      "confidence": 0.95,
+      "channel": 2,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 10.69,
+      "end": 17.8,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 18.6,
+      "end": 26.57,
+      "speaker": "S2",
+      "confidence": 0.95,
+      "channel": 2,
+      "overlap": true,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 26.15,
+      "end": 31.37,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": true,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 34.57,
+      "end": 37.64,
+      "speaker": "S2",
+      "confidence": 0.95,
+      "channel": 2,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 38.47,
+      "end": 45.64,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 48.71,
+      "end": 76.77,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 77.09,
+      "end": 78.89,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 79.17,
+      "end": 89.89,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 92.17,
+      "end": 95.27,
+      "speaker": "S2",
+      "confidence": 0.95,
+      "channel": 2,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 96.1,
+      "end": 98.66,
+      "speaker": "S1",
+      "confidence": 0.95,
+      "channel": 1,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    },
+    {
+      "start": 99.59,
+      "end": 100.65,
+      "speaker": "S2",
+      "confidence": 0.95,
+      "channel": 2,
+      "overlap": false,
+      "possible_overlap": false,
+      "uncertain": false
+    }
+  ],
+  "overlaps": [
+    [
+      26.15,
+      26.57
+    ]
+  ],
+  "events": [
+    {
+      "id": "ev-1",
+      "type": "breathing",
+      "start": 46.56,
+      "end": 47.52,
+      "score": 0.9,
+      "classes": [
+        "Snoring"
+      ],
+      "detector": "yamnet",
+      "channel": 2
+    },
+    {
+      "id": "ev-2",
+      "type": "breathing",
+      "start": 90.72,
+      "end": 91.68,
+      "score": 0.695,
+      "classes": [
+        "Breathing"
+      ],
+      "detector": "yamnet",
+      "channel": 2
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-1",
+      "type": "talk_share",
+      "start": 0.0,
+      "end": 101.38,
+      "speakers": [
+        "S1"
+      ],
+      "statement": "{S1} spoke 80% of the speaking time in this recording (busiest 2-minute stretch shown).",
+      "measurement": {
+        "talk_share": 0.803,
+        "talk_s": 72.1,
+        "total_talk_s": 89.8
+      },
+      "method": "sum of turn durations per speaker from voice activity / speaker turns",
+      "detector": null,
+      "score": null,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [
+        "the call may have been a planned presentation or demo"
+      ],
+      "turn_ids": [],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-2",
+      "type": "question",
+      "start": 18.6,
+      "end": 26.57,
+      "speakers": [
+        "S2"
+      ],
+      "statement": "{S2} asked a question (from the transcript).",
+      "measurement": {
+        "words_reliable": true,
+        "topics": [
+          "price"
+        ]
+      },
+      "method": "question mark or interrogative word (English/Arabic/Arabizi list) in the transcript",
+      "detector": "transcript",
+      "score": null,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [],
+      "turn_ids": [
+        "turn-4"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-3",
+      "type": "interruption",
+      "start": 26.15,
+      "end": 26.57,
+      "speakers": [
+        "S1",
+        "S2"
+      ],
+      "statement": "{S1} started speaking while {S2} was speaking (0.4 s of overlap); {S2} stopped 0.4 s later.",
+      "measurement": {
+        "overlap_s": 0.42,
+        "interrupter": "S1",
+        "interrupted": "S2",
+        "earlier_speaker_continued_s": 0.42
+      },
+      "method": "simultaneous voice activity on the two call channels",
+      "detector": "per-channel VAD",
+      "score": 0.42,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [
+        "{S2} may have been finishing anyway",
+        "line delay can make turn-taking look like overlap"
+      ],
+      "turn_ids": [
+        "turn-4",
+        "turn-5"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-4",
+      "type": "pace_change",
+      "start": 26.15,
+      "end": 31.37,
+      "speakers": [
+        "S1"
+      ],
+      "statement": "{S1} spoke faster than usual in this turn: about 6.9 vs a median of 4.4 estimated syllables/s.",
+      "measurement": {
+        "syllable_rate": 6.9,
+        "speaker_median_rate": 4.44,
+        "relative_change": 0.55
+      },
+      "method": "estimated syllable rate: peaks of the smoothed 300-2500 Hz intensity contour with >= 1 dB prominence, >= 70 ms apart, inside speech (after de Jong & Wempe 2009); language-independent proxy, not a word count; on TTS test speech it correlates 0.83 with true syllable rate and under-counts very fast speech",
+      "detector": "intensity-peak syllable estimate",
+      "score": 0.55,
+      "uncertain": true,
+      "uncertainty": "syllable estimates are approximate (+/- ~15%) and depend on audio quality",
+      "alternatives": [
+        "reading a list or numbers",
+        "summarising familiar material"
+      ],
+      "turn_ids": [
+        "turn-5"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-5",
+      "type": "response_gap",
+      "start": 31.37,
+      "end": 34.57,
+      "speakers": [
+        "S2",
+        "S1"
+      ],
+      "statement": "3.2 s of silence after {S1} finished before {S2} spoke.",
+      "measurement": {
+        "gap_s": 3.2
+      },
+      "method": "time from the end of one speaker's turn to the start of the other speaker's next turn",
+      "detector": "VAD",
+      "score": 3.2,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [
+        "thinking or reading",
+        "checking something off-call",
+        "a connection delay",
+        "muted microphone"
+      ],
+      "turn_ids": [
+        "turn-5",
+        "turn-6"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-6",
+      "type": "question",
+      "start": 34.57,
+      "end": 37.64,
+      "speakers": [
+        "S2"
+      ],
+      "statement": "{S2} asked a question (from the transcript).",
+      "measurement": {
+        "words_reliable": true,
+        "topics": [
+          "contract_terms"
+        ]
+      },
+      "method": "question mark or interrogative word (English/Arabic/Arabizi list) in the transcript",
+      "detector": "transcript",
+      "score": null,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [],
+      "turn_ids": [
+        "turn-6"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-7",
+      "type": "monologue",
+      "start": 38.47,
+      "end": 89.89,
+      "speakers": [
+        "S1"
+      ],
+      "statement": "{S1} spoke for 51 s without the other person taking a turn.",
+      "measurement": {
+        "turn_s": 51.4
+      },
+      "method": "turn duration from speaker turns",
+      "detector": null,
+      "score": null,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [
+        "the other person asked for a full explanation",
+        "a requested demo"
+      ],
+      "turn_ids": [
+        "turn-7"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-8",
+      "type": "long_pause",
+      "start": 45.64,
+      "end": 48.71,
+      "speakers": [
+        "S1"
+      ],
+      "statement": "{S1} paused 3.1 s mid-turn.",
+      "measurement": {
+        "pause_s": 3.07
+      },
+      "method": "silence between speech segments of the same speaker, from the voice-activity detector",
+      "detector": "VAD",
+      "score": 3.07,
+      "uncertain": false,
+      "uncertainty": "",
+      "alternatives": [
+        "looking something up",
+        "letting a point sink in",
+        "a dropout in the line"
+      ],
+      "turn_ids": [
+        "turn-7"
+      ],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-9",
+      "type": "breathing",
+      "start": 46.56,
+      "end": 47.52,
+      "speakers": [
+        "S2"
+      ],
+      "statement": "Audible breathing/sigh detected from {S2} (score 0.90).",
+      "measurement": {
+        "detector_score": 0.9,
+        "classes": [
+          "Snoring"
+        ],
+        "attributed_to": "S2",
+        "attribution": "heard on channel 2"
+      },
+      "method": "yamnet audio-event classifier on the original audio, 0.96 s windows, 0.48 s hop",
+      "detector": "yamnet",
+      "score": 0.9,
+      "uncertain": true,
+      "uncertainty": "breathing is a weak detector class; replay to confirm",
+      "alternatives": [
+        "microphone close to the mouth",
+        "movement or walking",
+        "detector false alarm on noise"
+      ],
+      "turn_ids": [],
+      "attribution_reliable": true
+    },
+    {
+      "id": "obs-10",
+      "type": "breathing",
+      "start": 90.72,
+      "end": 91.68,
+      "speakers": [
+        "S2"
+      ],
+      "statement": "Audible breathing/sigh detected from {S2} (score 0.69).",
+      "measurement": {
+        "detector_score": 0.695,
+        "classes": [
+          "Breathing"
+        ],
+        "attributed_to": "S2",
+        "attribution": "heard on channel 2"
+      },
+      "method": "yamnet audio-event classifier on the original audio, 0.96 s windows, 0.48 s hop",
+      "detector": "yamnet",
+      "score": 0.695,
+      "uncertain": true,
+      "uncertainty": "breathing is a weak detector class; replay to confirm",
+      "alternatives": [
+        "microphone close to the mouth",
+        "movement or walking",
+        "detector false alarm on noise"
+      ],
+      "turn_ids": [],
+      "attribution_reliable": true
+    }
+  ],
+  "coaching_notes": [
+    {
+      "id": "note-1",
+      "timestamp": "00:00:00.0",
+      "start": 0.0,
+      "end": 101.38,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=0.0,103.4",
+        "from_s": 0.0,
+        "to_s": 103.4,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 0.0 -t 103.4 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-1"
+      },
+      "speaker": {
+        "id": "S1",
+        "role": "salesperson",
+        "label": "the salesperson (S1)",
+        "attribution_confidence": null,
+        "attribution_reliable": true
+      },
+      "words": null,
+      "words_status": "no words transcribed in this span",
+      "cue": {
+        "type": "talk_share",
+        "description": "The salesperson (S1) spoke 80% of the speaking time in this recording (busiest 2-minute stretch shown).",
+        "detector": null,
+        "method": "sum of turn durations per speaker from voice activity / speaker turns",
+        "measurement": {
+          "talk_share": 0.803,
+          "talk_s": 72.1,
+          "total_talk_s": 89.8
+        },
+        "score": null,
+        "uncertainty": "none noted"
+      },
+      "interaction": "The salesperson (S1) had 80% of the speaking time; the window shown is the stretch where they spoke most.",
+      "suggestion": "Plan two or three discovery questions and let the answers run, e.g. \"Can you walk me through how you handle this today?\"",
+      "alternative_explanations": [
+        "The call may have been a planned presentation or demo"
+      ],
+      "observation_ids": [
+        "obs-1"
+      ],
+      "uncertain": false,
+      "priority": 3,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-2",
+      "timestamp": "00:00:18.6",
+      "start": 18.6,
+      "end": 26.57,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=16.6,28.6",
+        "from_s": 16.6,
+        "to_s": 28.6,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 16.6 -t 12.0 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-2"
+      },
+      "speaker": {
+        "id": "S2",
+        "role": "client_in_this_call",
+        "label": "the client in this call (S2)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the client in this call (S2): \"Okay, and how does the pricing work? Our budget is quite limited this year, so I need to understand the monthly cost, and whether we can start small?\" | the salesperson (S1): \"So the annual plan is the best value. It is $1200 a year and that includes everything, onboarding, reporting, support, all of it, and you lock in the price\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "question",
+        "description": "The client in this call (S2) asked a question (from the transcript).",
+        "detector": "transcript",
+        "method": "question mark or interrogative word (English/Arabic/Arabizi list) in the transcript",
+        "measurement": {
+          "words_reliable": true,
+          "topics": [
+            "price"
+          ]
+        },
+        "score": null,
+        "uncertainty": "none noted"
+      },
+      "interaction": "The client in this call (S2) asked a question about price/budget. The salesperson (S1) started replying 0.4 s before the question ended (overlap) and spoke for 5 s.",
+      "suggestion": "Answer it directly first, then confirm: \"Does that answer your question?\" For price questions, give the number, then pause.",
+      "alternative_explanations": [],
+      "observation_ids": [
+        "obs-2"
+      ],
+      "uncertain": false,
+      "priority": 1,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-3",
+      "timestamp": "00:00:26.1",
+      "start": 26.15,
+      "end": 26.57,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=24.1,28.6",
+        "from_s": 24.1,
+        "to_s": 28.6,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 24.1 -t 4.4 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-3"
+      },
+      "speaker": {
+        "id": "S1",
+        "role": "salesperson",
+        "label": "the salesperson (S1)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the client in this call (S2): \"Okay, and how does the pricing work? Our budget is quite limited this year, so I need to understand the monthly cost, and whether we can start small?\" | the salesperson (S1): \"So the annual plan is the best value. It is $1200 a year and that includes everything, onboarding, reporting, support, all of it, and you lock in the price\" | the client in this call (S2): \"What are the cancellation terms if it does not work out for us?\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "interruption",
+        "description": "The salesperson (S1) started speaking while the client in this call (S2) was speaking (0.4 s of overlap); the client in this call (S2) stopped 0.4 s later.",
+        "detector": "per-channel VAD",
+        "method": "simultaneous voice activity on the two call channels",
+        "measurement": {
+          "overlap_s": 0.42,
+          "interrupter": "S1",
+          "interrupted": "S2",
+          "earlier_speaker_continued_s": 0.42
+        },
+        "score": 0.42,
+        "uncertainty": "none noted"
+      },
+      "interaction": "The salesperson (S1) started speaking while the client in this call (S2) was talking about price/budget. Their next turn was a question about contract or cancellation terms.",
+      "suggestion": "Let them finish, summarise what you heard in one sentence, then ask: \"Before I answer - what budget range were you planning for this?\"",
+      "alternative_explanations": [
+        "The client in this call (S2) may have been finishing anyway",
+        "Line delay can make turn-taking look like overlap"
+      ],
+      "observation_ids": [
+        "obs-3"
+      ],
+      "uncertain": false,
+      "priority": 1,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-4",
+      "timestamp": "00:00:26.1",
+      "start": 26.15,
+      "end": 31.37,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=24.1,33.4",
+        "from_s": 24.1,
+        "to_s": 33.4,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 24.1 -t 9.2 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-4"
+      },
+      "speaker": {
+        "id": "S1",
+        "role": "salesperson",
+        "label": "the salesperson (S1)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the salesperson (S1): \"So the annual plan is the best value. It is $1200 a year and that includes everything, onboarding, reporting, support, all of it, and you lock in the price\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "pace_change",
+        "description": "The salesperson (S1) spoke faster than usual in this turn: about 6.9 vs a median of 4.4 estimated syllables/s.",
+        "detector": "intensity-peak syllable estimate",
+        "method": "estimated syllable rate: peaks of the smoothed 300-2500 Hz intensity contour with >= 1 dB prominence, >= 70 ms apart, inside speech (after de Jong & Wempe 2009); language-independent proxy, not a word count; on TTS test speech it correlates 0.83 with true syllable rate and under-counts very fast speech",
+        "measurement": {
+          "syllable_rate": 6.9,
+          "speaker_median_rate": 4.44,
+          "relative_change": 0.55
+        },
+        "score": 0.55,
+        "uncertainty": "syllable estimates are approximate (+/- ~15%) and depend on audio quality"
+      },
+      "interaction": "The salesperson (S1)'s estimated speaking rate rose by 55% compared with their usual rate in this recording while discussing price/budget.",
+      "suggestion": "Slow down on key numbers and terms and pause after each one so the other person can respond or ask.",
+      "alternative_explanations": [
+        "Reading a list or numbers",
+        "Summarising familiar material"
+      ],
+      "observation_ids": [
+        "obs-4"
+      ],
+      "uncertain": true,
+      "priority": 3,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-5",
+      "timestamp": "00:00:31.4",
+      "start": 31.37,
+      "end": 34.57,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=29.4,36.6",
+        "from_s": 29.4,
+        "to_s": 36.6,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 29.4 -t 7.2 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-5"
+      },
+      "speaker": {
+        "id": "S2",
+        "role": "client_in_this_call",
+        "label": "the client in this call (S2)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the salesperson (S1): \"So the annual plan is the best value. It is $1200 a year and that includes everything, onboarding, reporting, support, all of it, and you lock in the price\" | the client in this call (S2): \"What are the cancellation terms if it does not work out for us?\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "response_gap",
+        "description": "3.2 s of silence after the salesperson (S1) finished before the client in this call (S2) spoke.",
+        "detector": "VAD",
+        "method": "time from the end of one speaker's turn to the start of the other speaker's next turn",
+        "measurement": {
+          "gap_s": 3.2
+        },
+        "score": 3.2,
+        "uncertainty": "none noted"
+      },
+      "interaction": "After the salesperson (S1) finished about price/budget, there were 3.2 s of silence before the client in this call (S2) replied.",
+      "suggestion": "Silence can be thinking time - let it run a little. If you add something, make it a short open question rather than more information, e.g. \"What questions do you have about that?\"",
+      "alternative_explanations": [
+        "Thinking or reading",
+        "Checking something off-call",
+        "A connection delay",
+        "Muted microphone"
+      ],
+      "observation_ids": [
+        "obs-5"
+      ],
+      "uncertain": false,
+      "priority": 2,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-6",
+      "timestamp": "00:00:34.6",
+      "start": 34.57,
+      "end": 37.64,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=32.6,39.6",
+        "from_s": 32.6,
+        "to_s": 39.6,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 32.6 -t 7.1 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-6"
+      },
+      "speaker": {
+        "id": "S2",
+        "role": "client_in_this_call",
+        "label": "the client in this call (S2)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the client in this call (S2): \"What are the cancellation terms if it does not work out for us?\" | the salesperson (S1): \"Good question. You can cancel with 30 days notice and honestly, nobody has ever wanted to leave the reporting dashboard board. So let me explain how the contract works in detail. The agreement runs for 12 months from the start date, billing is monthly or annual, whichever you prefer, onboarding takes about 2 weeks, and we assign you a success manager. After the first quarter we review usage together and adjust the setup, reporting is delivered every Monday morning, support is available by chat and email during business hours, and urgent issues are handled the same day. We also run a training session for new staff every month and all of that is included in the plan If you add more users later, the price per seat stays the same and you can move between plans at renewal Most customers also connect their calendar and email which takes about 10 minutes Of\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "question",
+        "description": "The client in this call (S2) asked a question (from the transcript).",
+        "detector": "transcript",
+        "method": "question mark or interrogative word (English/Arabic/Arabizi list) in the transcript",
+        "measurement": {
+          "words_reliable": true,
+          "topics": [
+            "contract_terms"
+          ]
+        },
+        "score": null,
+        "uncertainty": "none noted"
+      },
+      "interaction": "The client in this call (S2) asked a question about contract or cancellation terms. The reply from the salesperson (S1) started 0.8 s later and lasted 51 s. Check whether the question was answered early in that reply.",
+      "suggestion": "Answer it directly first, then confirm: \"Does that answer your question?\"",
+      "alternative_explanations": [],
+      "observation_ids": [
+        "obs-6"
+      ],
+      "uncertain": false,
+      "priority": 1,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-7",
+      "timestamp": "00:00:38.5",
+      "start": 38.47,
+      "end": 68.47,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=36.5,70.5",
+        "from_s": 36.5,
+        "to_s": 70.5,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 36.5 -t 34.0 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-7"
+      },
+      "speaker": {
+        "id": "S1",
+        "role": "salesperson",
+        "label": "the salesperson (S1)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the salesperson (S1): \"Good question. You can cancel with 30 days notice and honestly, nobody has ever wanted to leave the reporting dashboard board. So let me explain how the contract works in detail. The agreement runs for 12 months from the start date, billing is monthly or annual, whichever you prefer, onboarding takes about 2 weeks, and we assign you a success manager. After the first quarter we review usage together and adjust the setup, reporting is delivered every Monday morning, support is available by chat and email during business hours, and urgent issues are handled the same day. We also run a training session for new staff every month and all of that is included in the plan If you add more users later, the price per seat stays the same and you can move between plans at renewal Most customers also connect their calendar and email which takes about 10 minutes Of\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "monologue",
+        "description": "The salesperson (S1) spoke for 51 s without the other person taking a turn.",
+        "detector": null,
+        "method": "turn duration from speaker turns",
+        "measurement": {
+          "turn_s": 51.4
+        },
+        "score": null,
+        "uncertainty": "none noted"
+      },
+      "interaction": "The salesperson (S1) spoke for 51 s without a turn from the other person about price/budget and contract or cancellation terms.",
+      "suggestion": "Break long explanations with a check-in about every 30-45 s, e.g. \"Does this match what you need so far?\" or \"Which part is most relevant for you?\"",
+      "alternative_explanations": [
+        "The other person asked for a full explanation",
+        "A requested demo"
+      ],
+      "observation_ids": [
+        "obs-7"
+      ],
+      "uncertain": false,
+      "priority": 2,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-8",
+      "timestamp": "00:00:46.6",
+      "start": 46.56,
+      "end": 47.52,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=44.6,49.5",
+        "from_s": 44.6,
+        "to_s": 49.5,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 44.6 -t 5.0 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-8"
+      },
+      "speaker": {
+        "id": "S2",
+        "role": "client_in_this_call",
+        "label": "the client in this call (S2)",
+        "attribution_confidence": null,
+        "attribution_reliable": true
+      },
+      "words": null,
+      "words_status": "no words transcribed in this span",
+      "cue": {
+        "type": "breathing",
+        "description": "Audible breathing/sigh detected from the client in this call (S2) (score 0.90).",
+        "detector": "yamnet",
+        "method": "yamnet audio-event classifier on the original audio, 0.96 s windows, 0.48 s hop",
+        "measurement": {
+          "detector_score": 0.9,
+          "classes": [
+            "Snoring"
+          ],
+          "attributed_to": "S2",
+          "attribution": "heard on channel 2"
+        },
+        "score": 0.9,
+        "uncertainty": "breathing is a weak detector class; replay to confirm"
+      },
+      "interaction": "An audible breath or sigh was detected from the client in this call (S2). It is a sound, not evidence of a feeling.",
+      "suggestion": "Leave room for them to speak; a neutral check-in works either way: \"How does that sound so far?\"",
+      "alternative_explanations": [
+        "Microphone close to the mouth",
+        "Movement or walking",
+        "Detector false alarm on noise"
+      ],
+      "observation_ids": [
+        "obs-9"
+      ],
+      "uncertain": true,
+      "priority": 4,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    },
+    {
+      "id": "note-9",
+      "timestamp": "00:01:30.7",
+      "start": 90.72,
+      "end": 91.68,
+      "play": {
+        "recording": "original",
+        "uri": "file:///path/to/demo_call.wav#t=88.7,93.7",
+        "from_s": 88.7,
+        "to_s": 93.7,
+        "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 88.7 -t 5.0 /path/to/demo_call.wav",
+        "command": "audio-sales-coach play /path/to/report --note note-9"
+      },
+      "speaker": {
+        "id": "S2",
+        "role": "client_in_this_call",
+        "label": "the client in this call (S2)",
+        "attribution_confidence": 0.95,
+        "attribution_reliable": true
+      },
+      "words": "the client in this call (S2): \"I will need to check with my manager before we decide anything.\"",
+      "words_status": "transcribed",
+      "cue": {
+        "type": "breathing",
+        "description": "Audible breathing/sigh detected from the client in this call (S2) (score 0.69).",
+        "detector": "yamnet",
+        "method": "yamnet audio-event classifier on the original audio, 0.96 s windows, 0.48 s hop",
+        "measurement": {
+          "detector_score": 0.695,
+          "classes": [
+            "Breathing"
+          ],
+          "attributed_to": "S2",
+          "attribution": "heard on channel 2"
+        },
+        "score": 0.695,
+        "uncertainty": "breathing is a weak detector class; replay to confirm"
+      },
+      "interaction": "An audible breath or sigh was detected from the client in this call (S2) before their turn about who decides. It is a sound, not evidence of a feeling.",
+      "suggestion": "Leave room for them to speak; a neutral check-in works either way: \"How does that sound so far?\"",
+      "alternative_explanations": [
+        "Microphone close to the mouth",
+        "Movement or walking",
+        "Detector false alarm on noise"
+      ],
+      "observation_ids": [
+        "obs-10"
+      ],
+      "uncertain": true,
+      "priority": 4,
+      "not_inferred": "This note describes what can be heard and measured. It does not say how anyone felt, whether they were truthful, or whether they will buy.",
+      "council": {
+        "status": "supported",
+        "claims_checked": 3
+      }
+    }
+  ],
+  "views": {
+    "timebase": "seconds from the start of the original recording (shared by every view)",
+    "salesperson": {
+      "speaker_ids": [
+        "S1"
+      ],
+      "turn_ids": [
+        "turn-1",
+        "turn-3",
+        "turn-5",
+        "turn-7",
+        "turn-9"
+      ],
+      "event_ids": [
+        "ev-1",
+        "ev-2"
+      ],
+      "observation_ids": [
+        "obs-1",
+        "obs-3",
+        "obs-4",
+        "obs-5",
+        "obs-7",
+        "obs-8"
+      ],
+      "note_ids": [
+        "note-1",
+        "note-3",
+        "note-4",
+        "note-5",
+        "note-7"
+      ],
+      "talk_s": 72.1
+    },
+    "client": {
+      "speaker_ids": [
+        "S2"
+      ],
+      "turn_ids": [
+        "turn-2",
+        "turn-4",
+        "turn-6",
+        "turn-8",
+        "turn-10"
+      ],
+      "event_ids": [
+        "ev-1",
+        "ev-2"
+      ],
+      "observation_ids": [
+        "obs-2",
+        "obs-3",
+        "obs-5",
+        "obs-6",
+        "obs-9",
+        "obs-10"
+      ],
+      "note_ids": [
+        "note-2",
+        "note-3",
+        "note-5",
+        "note-6",
+        "note-8",
+        "note-9"
+      ],
+      "talk_s": 17.7
+    },
+    "combined": {
+      "speaker_ids": [
+        "S1",
+        "S2"
+      ],
+      "turn_ids": [
+        "turn-1",
+        "turn-2",
+        "turn-3",
+        "turn-4",
+        "turn-5",
+        "turn-6",
+        "turn-7",
+        "turn-8",
+        "turn-9",
+        "turn-10"
+      ],
+      "event_ids": [
+        "ev-1",
+        "ev-2"
+      ],
+      "observation_ids": [
+        "obs-1",
+        "obs-2",
+        "obs-3",
+        "obs-4",
+        "obs-5",
+        "obs-6",
+        "obs-7",
+        "obs-8",
+        "obs-9",
+        "obs-10"
+      ],
+      "note_ids": [
+        "note-1",
+        "note-2",
+        "note-3",
+        "note-4",
+        "note-5",
+        "note-6",
+        "note-7",
+        "note-8",
+        "note-9"
+      ],
+      "talk_s": 89.8,
+      "overlaps": [
+        [
+          26.15,
+          26.57
+        ]
+      ]
+    }
+  },
+  "council": {
+    "command": "evidence-council review",
+    "exit_code": 0,
+    "exit_meaning": "ok",
+    "task_file": "/path/to/report/council/task.json",
+    "providers_requested": [
+      "none"
+    ],
+    "status": "reviewed",
+    "result_file": "/path/to/report/council/result.json",
+    "provider_comments": [],
+    "warnings": [
+      "candidate-only review: no providers were asked (providers.requested = ['none'])"
+    ],
+    "verdict_status": "multiple_supported",
+    "providers_used": [],
+    "headline": "Several different answers passed every objective check.",
+    "per_note": {
+      "note-1": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-2": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-3": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-4": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-5": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-6": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-7": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-8": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "note-9": {
+        "supported": 3,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      },
+      "coverage-claim": {
+        "supported": 1,
+        "contradicted": 0,
+        "citation_problem": 0,
+        "unverified": 0,
+        "issues": []
+      }
+    },
+    "rejected": {},
+    "uncertainty": {
+      "level": "medium",
+      "reasons": [
+        "selection rests on a single selecting check",
+        "candidate-only review: drafts were checked against evidence; no independent proposals were requested",
+        "several different answers passed the checks"
+      ]
+    }
+  },
+  "warnings": [],
+  "limitations": [
+    "Real-world accuracy on authorized sales calls has not been measured; evaluation so far uses synthetic speech and licensed sound-event clips (docs/evaluation.md).",
+    "Cues are observations, not emotions: laughter, breathing, pauses, pitch and pace changes have many causes.",
+    "On mixed mono recordings, speaker attribution comes from voice clustering and can be wrong, especially for similar voices, short turns and overlapping speech.",
+    "Breathing detection is weak; treat breathing cues as prompts to replay, not as evidence.",
+    "Mixed Lebanese Arabic/English transcription (optional) is approximate; acoustic cues do not depend on it."
+  ],
+  "timings_s": {
+    "decode": 0.29,
+    "speakers": 3.61,
+    "measurements": 0.66,
+    "events": 4.23,
+    "transcription": 31.68,
+    "voice_id": 0.0,
+    "council": 0.66,
+    "total": 41.15
+  }
+}

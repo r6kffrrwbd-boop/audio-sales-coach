@@ -68,3 +68,24 @@ def test_roles_precedence_user_over_profile():
     assert src == "voice_profile" and roles == {"S1": "client_in_this_call", "S2": "salesperson"}
     roles, src = coaching.roles_from(["S1"], "single_speaker", None, {}, None)
     assert roles == {"S1": "speaker"}
+
+
+def test_question_detection_english_arabic_arabizi():
+    from audio_sales_coach.observations import looks_like_question, topics_in
+    assert looks_like_question("What are the cancellation terms")
+    assert looks_like_question("بس بدي أعرف قديش الـ price تبع الـ annual plan")
+    assert looks_like_question("ok bas adesh el si3r")
+    assert not looks_like_question("I will need to check with my manager.")
+    assert not looks_like_question("تمام، رح إحكي مع المدير وبرجعلك")
+    assert "price" in topics_in("قديش السعر؟") and "contract_terms" in topics_in("بدنا نعمل إلغاء للعقد")
+
+
+def test_overlapping_reply_to_a_question_is_not_reported_as_missing():
+    from audio_sales_coach.observations import Observation
+    from helpers import turn
+    turns = [turn(1, "S2", 10.0, 16.0, "How does the pricing work?", topics=["price"], q=True),
+             turn(2, "S1", 15.6, 20.0, "The annual plan is best.", topics=["price"])]
+    obs = [Observation("obs-1", "question", 10.0, 16.0, ["S2"], "{S2} asked a question (from the transcript).",
+                       {"words_reliable": True, "topics": ["price"]}, "transcript", detector="transcript", turn_ids=["turn-1"])]
+    n = coaching.build_notes(obs, turns, ROLES, "/r.wav", None, True, "separate_channels")[0]
+    assert "No reply" not in n.interaction and "before the question ended" in n.interaction

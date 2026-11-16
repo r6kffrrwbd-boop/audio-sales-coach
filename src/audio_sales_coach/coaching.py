@@ -91,7 +91,7 @@ def label(spk: str, roles: dict) -> str:
 
 def render(text: str, roles: dict) -> str:
     out = re.sub(r"\{(S\d+)\}", lambda m: label(m.group(1), roles), text)
-    return out[:1].upper() + out[1:]
+    return re.sub(r"(^|[.!?]\s+)([a-z])", lambda m: m.group(1) + m.group(2).upper(), out)
 
 
 def play_ref(recording_path: str, start: float, end: float, report_dir: str | None, note_id: str) -> dict:
@@ -261,21 +261,26 @@ def build_notes(observations: list[Observation], turns: list[Turn], roles: dict,
             b.add(o, inter, sug, spk, 3, turns=(prev,), start=max(0.0, o.start - 4.0))
         elif o.type == "breathing" and o.measurement.get("attributed_to") and b.role(o.measurement["attributed_to"]) == CL:
             nxt = b.next_turn(o.start, speaker=o.measurement["attributed_to"])
+            nxt = nxt if nxt and nxt.start - o.end <= 3.0 else None
             inter = ("An audible breath or sigh was detected from {" + o.measurement["attributed_to"] + "}"
                      + (f" before their turn{_topic_clause(nxt)}" if nxt else "") + ". It is a sound, not evidence of a feeling.")
             sug = "Leave room for them to speak; a neutral check-in works either way: \"How does that sound so far?\""
             b.add(o, inter, sug, o.measurement["attributed_to"], 4, turns=(nxt,))
         elif o.type in ("question", "rising_ending") and (b.role(o.speakers[0]) == CL or (not roles_known and layout != "single_speaker")):
             t = T[0] if T else None
-            reply = b.next_turn(o.end, speaker=None)
-            reply = reply if reply and reply.speaker != o.speakers[0] else None
+            q_start = t.start if t else o.start
+            reply = next((x for x in b.order if x.speaker != o.speakers[0] and x.start > q_start + 0.5
+                          and x.end > o.end), None)
             gap = (reply.start - o.end) if reply else None
             if o.type == "question":
                 inter = f"{{{o.speakers[0]}}} asked a question{_topic_clause(t)}."
             else:
                 inter = f"{{{o.speakers[0]}}}'s turn ended with rising pitch{_topic_clause(t)} - possibly a question."
-            if reply:
-                inter += f" The reply from {{{reply.speaker}}} started {max(0.0, gap):.1f} s later and lasted {reply.end - reply.start:.0f} s."
+            if reply and gap < 0:
+                inter += (f" {{{reply.speaker}}} started replying {-gap:.1f} s before the question ended (overlap) and "
+                          f"spoke for {reply.end - reply.start:.0f} s.")
+            elif reply:
+                inter += f" The reply from {{{reply.speaker}}} started {gap:.1f} s later and lasted {reply.end - reply.start:.0f} s."
                 if reply.end - reply.start > 45:
                     inter += " Check whether the question was answered early in that reply."
             else:

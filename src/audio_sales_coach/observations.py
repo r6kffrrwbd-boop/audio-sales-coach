@@ -43,11 +43,17 @@ def topics_in(text: str | None) -> list[str]:
     return [k for k, pats in TOPICS.items() if any(re.search(p, t) for p in pats)]
 
 
+# Levantine/MSA interrogatives often come mid-sentence ("بس بدي أعرف قديش ..."), so they count anywhere.
+QUESTION_ANYWHERE = re.compile(r"(?:^|\s)(شو|كيف|ليش|ليه|قديش|قدي|وين|إيمتى|امتى|متى|أين|كم|مين|هل|ماذا|"
+                               r"shu|kif|keef|lesh|adesh|addesh|wein|emta)(?=\s|$|[؟?،,.])", re.IGNORECASE)
+
+
 def looks_like_question(text: str | None) -> bool:
     if not text:
         return False
     t = text.strip()
-    return t.endswith("?") or t.endswith("؟") or bool(QUESTION_START.match(t))
+    return (t.endswith("?") or t.endswith("؟") or bool(QUESTION_START.match(t))
+            or bool(QUESTION_ANYWHERE.search(t)))
 
 
 @dataclass
@@ -115,9 +121,10 @@ def build_turns(sr_res: SpeakerResult, feats: dict[str, ChannelFeatures], transc
                  any(x.overlap for x in g), any(x.possible_overlap for x in g), f.segment_stats(start, end), pauses)
         slope = f.final_pitch_slope(start, end)
         t.rising_end_st_per_s = round(slope, 1) if slope is not None else None
-        if transcript is not None:
-            t.words = transcript.words_between(start, end) or None
-            t.words_reliable = transcript.reliable_between(start, end)
+        tr = transcript.for_speaker(spk) if hasattr(transcript, "for_speaker") else transcript
+        if tr is not None:
+            t.words = tr.words_between(start, end) or None
+            t.words_reliable = tr.reliable_between(start, end)
             t.topics = topics_in(t.words)
             t.question_text = looks_like_question(t.words) or bool(t.words and re.search(r"[?؟]", t.words))
         turns.append(t)

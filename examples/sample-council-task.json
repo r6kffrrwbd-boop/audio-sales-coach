@@ -1,0 +1,647 @@
+{
+  "schema_version": "1.0",
+  "task": {
+    "id": "asc-rpt-0d2c75642a7d",
+    "title": "Review draft sales-coaching notes",
+    "prompt": "Independently challenge these draft coaching notes against the timestamped observations. Flag unsupported claims about emotions or intentions, wrong speaker attribution, missed client questions, and alternative explanations for each cue. Do not infer feelings.",
+    "domain": "coaching",
+    "answer_format": "text",
+    "tags": [
+      "sales-coaching",
+      "audio-sales-coach"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "rec",
+      "kind": "recording",
+      "title": "call recording (not forwarded)",
+      "source_ref": "rpt-0d2c75642a7d"
+    },
+    {
+      "id": "obs-1",
+      "kind": "observation",
+      "timestamp": "00:00:00.0",
+      "source_ref": "rpt-0d2c75642a7d#t=0.0",
+      "content": "The salesperson (S1) spoke 80% of the speaking time in this recording (busiest 2-minute stretch shown). Other explanations: The call may have been a planned presentation or demo.",
+      "facts": [
+        {
+          "key": "obs-1.cue",
+          "value": "talk_share"
+        },
+        {
+          "key": "obs-1.speaker_role",
+          "value": "salesperson"
+        },
+        {
+          "key": "obs-1.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-1.uncertain",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "obs-2",
+      "kind": "observation",
+      "timestamp": "00:00:18.6",
+      "source_ref": "rpt-0d2c75642a7d#t=18.6",
+      "content": "The client in this call (S2) asked a question (from the transcript).",
+      "facts": [
+        {
+          "key": "obs-2.cue",
+          "value": "question"
+        },
+        {
+          "key": "obs-2.speaker_role",
+          "value": "client_in_this_call"
+        },
+        {
+          "key": "obs-2.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-2.uncertain",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "obs-3",
+      "kind": "observation",
+      "timestamp": "00:00:26.1",
+      "source_ref": "rpt-0d2c75642a7d#t=26.1",
+      "content": "The salesperson (S1) started speaking while the client in this call (S2) was speaking (0.4 s of overlap); the client in this call (S2) stopped 0.4 s later. Other explanations: The client in this call (S2) may have been finishing anyway; Line delay can make turn-taking look like overlap.",
+      "facts": [
+        {
+          "key": "obs-3.cue",
+          "value": "interruption"
+        },
+        {
+          "key": "obs-3.speaker_role",
+          "value": "salesperson"
+        },
+        {
+          "key": "obs-3.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-3.uncertain",
+          "value": false
+        },
+        {
+          "key": "obs-3.score",
+          "value": 0.42
+        }
+      ]
+    },
+    {
+      "id": "obs-4",
+      "kind": "observation",
+      "timestamp": "00:00:26.1",
+      "source_ref": "rpt-0d2c75642a7d#t=26.1",
+      "content": "The salesperson (S1) spoke faster than usual in this turn: about 6.9 vs a median of 4.4 estimated syllables/s. Uncertainty: syllable estimates are approximate (+/- ~15%) and depend on audio quality. Other explanations: Reading a list or numbers; Summarising familiar material.",
+      "facts": [
+        {
+          "key": "obs-4.cue",
+          "value": "pace_change"
+        },
+        {
+          "key": "obs-4.speaker_role",
+          "value": "salesperson"
+        },
+        {
+          "key": "obs-4.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-4.uncertain",
+          "value": true
+        },
+        {
+          "key": "obs-4.score",
+          "value": 0.55
+        }
+      ]
+    },
+    {
+      "id": "obs-5",
+      "kind": "observation",
+      "timestamp": "00:00:31.4",
+      "source_ref": "rpt-0d2c75642a7d#t=31.4",
+      "content": "3.2 s of silence after the salesperson (S1) finished before the client in this call (S2) spoke. Other explanations: Thinking or reading; Checking something off-call; A connection delay; Muted microphone.",
+      "facts": [
+        {
+          "key": "obs-5.cue",
+          "value": "response_gap"
+        },
+        {
+          "key": "obs-5.speaker_role",
+          "value": "client_in_this_call"
+        },
+        {
+          "key": "obs-5.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-5.uncertain",
+          "value": false
+        },
+        {
+          "key": "obs-5.score",
+          "value": 3.2
+        }
+      ]
+    },
+    {
+      "id": "obs-6",
+      "kind": "observation",
+      "timestamp": "00:00:34.6",
+      "source_ref": "rpt-0d2c75642a7d#t=34.6",
+      "content": "The client in this call (S2) asked a question (from the transcript).",
+      "facts": [
+        {
+          "key": "obs-6.cue",
+          "value": "question"
+        },
+        {
+          "key": "obs-6.speaker_role",
+          "value": "client_in_this_call"
+        },
+        {
+          "key": "obs-6.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-6.uncertain",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "obs-7",
+      "kind": "observation",
+      "timestamp": "00:00:38.5",
+      "source_ref": "rpt-0d2c75642a7d#t=38.5",
+      "content": "The salesperson (S1) spoke for 51 s without the other person taking a turn. Other explanations: The other person asked for a full explanation; A requested demo.",
+      "facts": [
+        {
+          "key": "obs-7.cue",
+          "value": "monologue"
+        },
+        {
+          "key": "obs-7.speaker_role",
+          "value": "salesperson"
+        },
+        {
+          "key": "obs-7.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-7.uncertain",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "obs-9",
+      "kind": "observation",
+      "timestamp": "00:00:46.6",
+      "source_ref": "rpt-0d2c75642a7d#t=46.6",
+      "content": "Audible breathing/sigh detected from the client in this call (S2) (score 0.90). Uncertainty: breathing is a weak detector class; replay to confirm. Other explanations: Microphone close to the mouth; Movement or walking; Detector false alarm on noise.",
+      "facts": [
+        {
+          "key": "obs-9.cue",
+          "value": "breathing"
+        },
+        {
+          "key": "obs-9.speaker_role",
+          "value": "client_in_this_call"
+        },
+        {
+          "key": "obs-9.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-9.uncertain",
+          "value": true
+        },
+        {
+          "key": "obs-9.score",
+          "value": 0.9
+        }
+      ]
+    },
+    {
+      "id": "obs-10",
+      "kind": "observation",
+      "timestamp": "00:01:30.7",
+      "source_ref": "rpt-0d2c75642a7d#t=90.7",
+      "content": "Audible breathing/sigh detected from the client in this call (S2) (score 0.69). Uncertainty: breathing is a weak detector class; replay to confirm. Other explanations: Microphone close to the mouth; Movement or walking; Detector false alarm on noise.",
+      "facts": [
+        {
+          "key": "obs-10.cue",
+          "value": "breathing"
+        },
+        {
+          "key": "obs-10.speaker_role",
+          "value": "client_in_this_call"
+        },
+        {
+          "key": "obs-10.attribution_reliable",
+          "value": true
+        },
+        {
+          "key": "obs-10.uncertain",
+          "value": true
+        },
+        {
+          "key": "obs-10.score",
+          "value": 0.695
+        }
+      ]
+    },
+    {
+      "id": "coverage",
+      "kind": "measurement",
+      "title": "note coverage computed by audio-sales-coach",
+      "content": "2 client question cue(s); 0 without a coaching note.",
+      "facts": [
+        {
+          "key": "client_questions_total",
+          "value": 2
+        },
+        {
+          "key": "client_questions_without_note",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    "Never state as fact that a person was nervous, lying, comfortable or ready to buy.",
+    "No pressure or manipulation tactics."
+  ],
+  "candidates": [
+    {
+      "id": "note-1",
+      "label": "draft note at 00:00:00.0",
+      "answer": "The salesperson (S1) had 80% of the speaking time; the window shown is the stretch where they spoke most. Suggestion: Plan two or three discovery questions and let the answers run, e.g. \"Can you walk me through how you handle this today?\"",
+      "claims": [
+        {
+          "statement": "The cue is talk_share",
+          "key": "obs-1.cue",
+          "value": "talk_share",
+          "evidence_ids": [
+            "obs-1"
+          ],
+          "timestamp": "00:00:00.0"
+        },
+        {
+          "statement": "The cue belongs to the salesperson",
+          "key": "obs-1.speaker_role",
+          "value": "salesperson",
+          "evidence_ids": [
+            "obs-1"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-1.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-1"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-2",
+      "label": "draft note at 00:00:18.6",
+      "answer": "The client in this call (S2) asked a question about price/budget. The salesperson (S1) started replying 0.4 s before the question ended (overlap) and spoke for 5 s. Suggestion: Answer it directly first, then confirm: \"Does that answer your question?\" For price questions, give the number, then pause.",
+      "claims": [
+        {
+          "statement": "The cue is question",
+          "key": "obs-2.cue",
+          "value": "question",
+          "evidence_ids": [
+            "obs-2"
+          ],
+          "timestamp": "00:00:18.6"
+        },
+        {
+          "statement": "The cue belongs to the client in this call",
+          "key": "obs-2.speaker_role",
+          "value": "client_in_this_call",
+          "evidence_ids": [
+            "obs-2"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-2.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-2"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-3",
+      "label": "draft note at 00:00:26.1",
+      "answer": "The salesperson (S1) started speaking while the client in this call (S2) was talking about price/budget. Their next turn was a question about contract or cancellation terms. Suggestion: Let them finish, summarise what you heard in one sentence, then ask: \"Before I answer - what budget range were you planning for this?\"",
+      "claims": [
+        {
+          "statement": "The cue is interruption",
+          "key": "obs-3.cue",
+          "value": "interruption",
+          "evidence_ids": [
+            "obs-3"
+          ],
+          "timestamp": "00:00:26.1"
+        },
+        {
+          "statement": "The cue belongs to the salesperson",
+          "key": "obs-3.speaker_role",
+          "value": "salesperson",
+          "evidence_ids": [
+            "obs-3"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-3.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-3"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-4",
+      "label": "draft note at 00:00:26.1",
+      "answer": "The salesperson (S1)'s estimated speaking rate rose by 55% compared with their usual rate in this recording while discussing price/budget. Suggestion: Slow down on key numbers and terms and pause after each one so the other person can respond or ask.",
+      "claims": [
+        {
+          "statement": "The cue is pace_change",
+          "key": "obs-4.cue",
+          "value": "pace_change",
+          "evidence_ids": [
+            "obs-4"
+          ],
+          "timestamp": "00:00:26.1"
+        },
+        {
+          "statement": "The cue belongs to the salesperson",
+          "key": "obs-4.speaker_role",
+          "value": "salesperson",
+          "evidence_ids": [
+            "obs-4"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-4.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-4"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-5",
+      "label": "draft note at 00:00:31.4",
+      "answer": "After the salesperson (S1) finished about price/budget, there were 3.2 s of silence before the client in this call (S2) replied. Suggestion: Silence can be thinking time - let it run a little. If you add something, make it a short open question rather than more information, e.g. \"What questions do you have about that?\"",
+      "claims": [
+        {
+          "statement": "The cue is response_gap",
+          "key": "obs-5.cue",
+          "value": "response_gap",
+          "evidence_ids": [
+            "obs-5"
+          ],
+          "timestamp": "00:00:31.4"
+        },
+        {
+          "statement": "The cue belongs to the client in this call",
+          "key": "obs-5.speaker_role",
+          "value": "client_in_this_call",
+          "evidence_ids": [
+            "obs-5"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-5.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-5"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-6",
+      "label": "draft note at 00:00:34.6",
+      "answer": "The client in this call (S2) asked a question about contract or cancellation terms. The reply from the salesperson (S1) started 0.8 s later and lasted 51 s. Check whether the question was answered early in that reply. Suggestion: Answer it directly first, then confirm: \"Does that answer your question?\"",
+      "claims": [
+        {
+          "statement": "The cue is question",
+          "key": "obs-6.cue",
+          "value": "question",
+          "evidence_ids": [
+            "obs-6"
+          ],
+          "timestamp": "00:00:34.6"
+        },
+        {
+          "statement": "The cue belongs to the client in this call",
+          "key": "obs-6.speaker_role",
+          "value": "client_in_this_call",
+          "evidence_ids": [
+            "obs-6"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-6.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-6"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-7",
+      "label": "draft note at 00:00:38.5",
+      "answer": "The salesperson (S1) spoke for 51 s without a turn from the other person about price/budget and contract or cancellation terms. Suggestion: Break long explanations with a check-in about every 30-45 s, e.g. \"Does this match what you need so far?\" or \"Which part is most relevant for you?\"",
+      "claims": [
+        {
+          "statement": "The cue is monologue",
+          "key": "obs-7.cue",
+          "value": "monologue",
+          "evidence_ids": [
+            "obs-7"
+          ],
+          "timestamp": "00:00:38.5"
+        },
+        {
+          "statement": "The cue belongs to the salesperson",
+          "key": "obs-7.speaker_role",
+          "value": "salesperson",
+          "evidence_ids": [
+            "obs-7"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-7.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-7"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-8",
+      "label": "draft note at 00:00:46.6",
+      "answer": "An audible breath or sigh was detected from the client in this call (S2). It is a sound, not evidence of a feeling. Suggestion: Leave room for them to speak; a neutral check-in works either way: \"How does that sound so far?\"",
+      "claims": [
+        {
+          "statement": "The cue is breathing",
+          "key": "obs-9.cue",
+          "value": "breathing",
+          "evidence_ids": [
+            "obs-9"
+          ],
+          "timestamp": "00:00:46.6"
+        },
+        {
+          "statement": "The cue belongs to the client in this call",
+          "key": "obs-9.speaker_role",
+          "value": "client_in_this_call",
+          "evidence_ids": [
+            "obs-9"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-9.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-9"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "note-9",
+      "label": "draft note at 00:01:30.7",
+      "answer": "An audible breath or sigh was detected from the client in this call (S2) before their turn about who decides. It is a sound, not evidence of a feeling. Suggestion: Leave room for them to speak; a neutral check-in works either way: \"How does that sound so far?\"",
+      "claims": [
+        {
+          "statement": "The cue is breathing",
+          "key": "obs-10.cue",
+          "value": "breathing",
+          "evidence_ids": [
+            "obs-10"
+          ],
+          "timestamp": "00:01:30.7"
+        },
+        {
+          "statement": "The cue belongs to the client in this call",
+          "key": "obs-10.speaker_role",
+          "value": "client_in_this_call",
+          "evidence_ids": [
+            "obs-10"
+          ]
+        },
+        {
+          "statement": "Speaker attribution is reliable",
+          "key": "obs-10.attribution_reliable",
+          "value": true,
+          "evidence_ids": [
+            "obs-10"
+          ]
+        }
+      ],
+      "assumptions": [
+        "The note describes audible cues only, not feelings or intentions."
+      ]
+    },
+    {
+      "id": "coverage-claim",
+      "label": "coverage of client questions",
+      "answer": "Every client question cue has a coaching note.",
+      "claims": [
+        {
+          "statement": "No client question was left without a note",
+          "key": "client_questions_without_note",
+          "value": 0,
+          "evidence_ids": [
+            "coverage"
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "facts",
+      "type": "evidence_facts",
+      "decisive": true,
+      "description": "Each note's cue, speaker role and attribution must match the observation facts."
+    },
+    {
+      "id": "cites",
+      "type": "citations",
+      "require_citations": true,
+      "decisive": true,
+      "description": "Every claim must cite an existing observation with a matching timestamp."
+    }
+  ],
+  "privacy": {
+    "level": "private",
+    "redact": true
+  },
+  "providers": {
+    "requested": [
+      "none"
+    ]
+  },
+  "options": {
+    "use_lessons": false,
+    "create_lesson": false
+  }
+}

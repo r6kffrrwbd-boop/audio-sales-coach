@@ -114,7 +114,91 @@ From a real run on this machine on a synthetic 101 s call (two macOS TTS voices 
 ESC-50 breathing clip and an ESC-50 laughing clip inserted on the client channel). See
 [examples/sample-report.md](examples/sample-report.md) and [examples/sample-report.json](examples/sample-report.json).
 
-SAMPLE_PLACEHOLDER
+Command (run on this Intel MacBook, CPU only, 40 s for a 101 s call including Whisper-small transcription):
+
+```bash
+audio-sales-coach analyze demo_call.wav --output report --mode call --transcribe on --salesperson S1 --consent all-parties-consented
+```
+
+```json
+{
+  "layout": "separate_channels",
+  "speakers": [{"id": "S1", "role": "salesperson", "talk_share": 0.803},
+               {"id": "S2", "role": "client_in_this_call", "talk_share": 0.197}],
+  "notes": 9, "observations": 10, "events": 2, "council": "reviewed", "roles": "confident", "warnings": []
+}
+```
+
+Timestamped observations from that run: 00:00:18.6 client question (price) · 00:00:26.1 salesperson started
+speaking during the client's turn, 0.4 s overlap · 00:00:26.1 salesperson pace +55 % · 00:00:31.4 3.2 s silence
+before the client replied · 00:00:34.6 client question (cancellation terms) · 00:00:38.5 51 s salesperson
+monologue · 00:00:46.6 and 00:01:30.7 audible breathing on the client channel (YAMNet 0.90 / 0.69, marked uncertain;
+the first is an inserted ESC-50 *laughing* clip that YAMNet scored as breathing - a real detector miss).
+
+One note as rendered in `report.md`:
+
+### note-3 - 00:00:26.1 - the salesperson (S1)
+
+- **Replay (original recording):** `ffplay -nodisp -autoexit -loglevel error -ss 24.1 -t 4.4 /path/to/demo_call.wav`
+- **Cue:** The salesperson (S1) started speaking while the client in this call (S2) was speaking (0.4 s of overlap); the client in this call (S2) stopped 0.4 s later.
+- **Detector / measurement:** per-channel VAD - simultaneous voice activity on the two call channels; score 0.42
+- **Uncertainty:** none noted
+- **Words:** the client in this call (S2): "Okay, and how does the pricing work? Our budget is quite limited this year, so I need to understand the monthly cost, and whether we can start small?" | the salesperson (S1): "So the annual plan is the best value. It is $1200 a year and that includes everything, onboarding, reporting, support, all of it, and you lock in the price" | the client in this call (S2): "What are the cancellation terms if it does not work out for us?"
+- **Interaction to review:** The salesperson (S1) started speaking while the client in this call (S2) was talking about price/budget. Their next turn was a question about contract or cancellation terms.
+- **Try instead:** Let them finish, summarise what you heard in one sentence, then ask: "Before I answer - what budget range were you planning for this?"
+- **Other explanations:** The client in this call (S2) may have been finishing anyway; Line delay can make turn-taking look like overlap
+- **Council:** supported
+- Evidence: obs-3
+
+The same note in `report.json`:
+
+```json
+{
+  "id": "note-3",
+  "timestamp": "00:00:26.1",
+  "play": {
+    "recording": "original",
+    "uri": "file:///path/to/demo_call.wav#t=24.1,28.6",
+    "from_s": 24.1,
+    "to_s": 28.6,
+    "ffplay": "ffplay -nodisp -autoexit -loglevel error -ss 24.1 -t 4.4 /path/to/demo_call.wav",
+    "command": "audio-sales-coach play /path/to/report --note note-3"
+  },
+  "speaker": {
+    "id": "S1",
+    "role": "salesperson",
+    "label": "the salesperson (S1)",
+    "attribution_confidence": 0.95,
+    "attribution_reliable": true
+  },
+  "words": "the client in this call (S2): \"Okay, and how does the pricing work? Our budget is quite limited this year, so I need to understand the monthly cost, and whether we can start small?\" | the salesperson (S1): \"So the annual ...",
+  "cue": {
+    "type": "interruption",
+    "description": "The salesperson (S1) started speaking while the client in this call (S2) was speaking (0.4 s of overlap); the client in this call (S2) stopped 0.4 s later.",
+    "detector": "per-channel VAD",
+    "method": "simultaneous voice activity on the two call channels",
+    "measurement": {
+      "overlap_s": 0.42,
+      "interrupter": "S1",
+      "interrupted": "S2",
+      "earlier_speaker_continued_s": 0.42
+    },
+    "score": 0.42,
+    "uncertainty": "none noted"
+  },
+  "interaction": "The salesperson (S1) started speaking while the client in this call (S2) was talking about price/budget. Their next turn was a question about contract or cancellation terms.",
+  "suggestion": "Let them finish, summarise what you heard in one sentence, then ask: \"Before I answer - what budget range were you planning for this?\"",
+  "alternative_explanations": [
+    "The client in this call (S2) may have been finishing anyway",
+    "Line delay can make turn-taking look like overlap"
+  ],
+  "council": {
+    "status": "supported",
+    "claims_checked": 3
+  }
+}
+```
+
 
 ## How it works
 
@@ -132,7 +216,27 @@ SAMPLE_PLACEHOLDER
 
 See [docs/evaluation.md](docs/evaluation.md) for all numbers.
 
-EVAL_PLACEHOLDER
+**Verified on this machine (Intel i7-6700HQ MacBook Pro, 16 GB, macOS 14.8, CPU only):**
+
+* `./install.sh --with-transcription` from scratch: venv, pinned deps, model downloads with SHA-256 checks, skill,
+  command, self-test 16/16 passed. Test suite: 51 passed (unit tests plus end-to-end runs on synthetic calls, and a
+  live evidence-council run that catches a tampered speaker attribution).
+* YAMNet: NumPy port equals Google's TensorFlow 2.16.2 + tf-keras 2.16.0 output (max diff 1.5e-5). Official code
+  fails under Keras 3; TF 2.16.2 is the last Intel-macOS TensorFlow and needs numpy < 2.
+* Laughter (held-out ESC-50): precision 0.70, recall 0.88, AUC 0.97; inserted between speech: recall 0.63 (0.54
+  after Opus 16 kbit/s), 0 false events on speech. Breathing is weak: precision 0.35 on isolated clips.
+* Synthetic calls (TTS voices): speaker attribution 96-99.7 % for stereo, mono, noisy, Opus and similar voices;
+  voice notes never split into two people; interruptions, response gaps and pace changes found; 2-4 false
+  "possible interruptions" on noisy mono; client questions need transcription (audio-only found 0 of 4).
+* Voice ID on TTS voices: enrolled voice 0.92, other voices 0.25-0.29, roles set automatically.
+* evidence-council: absent → "skipped"; present with no providers → claims checked; with local `ollama:qwen3.5:4b`
+  → ran in 222 s, its free-text critique hallucinated issues, which the evidence checks did not accept.
+* Transcription (Whisper small, int8): English accurate; Arabic/English code-switching garbled (English words inside
+  Arabic sentences), while Whisper still rated those segments confident.
+
+**Not verified:** accuracy on real authorized sales calls (none were available), real Lebanese dialect speakers,
+voice-ID thresholds on real people, the WhatsApp Business adapter against a live account (mocked HTTP only), and
+whether salespeople find the suggestions useful. Feedback is stored for evaluation; it does not retrain anything.
 
 ## Privacy and legal
 

@@ -167,14 +167,7 @@ def analyze(path: str, output_dir: str, cfg: dict, mode: str = "auto", transcrip
     tick("transcription", t0)
 
     # 6. turns
-    if isinstance(transcript, _MultiTranscript):
-        turns = []
-        for s in sres.speakers:
-            sub = spk_mod.SpeakerResult(sres.layout, [g for g in sres.segments if g.speaker == s], [s])
-            turns += observations.build_turns(sub, {s: feats[s]}, transcript.for_speaker(s))
-        turns = _renumber(sorted(turns, key=lambda t: t.start))
-    else:
-        turns = observations.build_turns(sres, feats, transcript)
+    turns = observations.build_turns(sres, feats, transcript)
 
     # 7. roles: user > channel map > voice profile > unknown
     t0 = time.time()
