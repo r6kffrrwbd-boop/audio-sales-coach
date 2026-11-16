@@ -73,7 +73,12 @@ RETRY=(--retries 10 --timeout 60)
 say "installing pinned dependencies (requirements/base.lock)"
 "${PIP[@]}" "${RETRY[@]}" -r "$REPO/requirements/base.lock"
 say "installing audio-sales-coach from $REPO"
-"${PIP[@]}" --no-deps --force-reinstall "$REPO" >/dev/null
+# build from a staged copy so the repository is never written to (no stale build/ dirs)
+STAGE="$DATA_DIR/.build-src"; BTMP="$DATA_DIR/.tmp"
+rm -rf "$STAGE" "$BTMP"; mkdir -p "$STAGE" "$BTMP"
+cp -R "$REPO/pyproject.toml" "$REPO/README.md" "$REPO/LICENSE" "$REPO/src" "$STAGE/"
+TMPDIR="$BTMP" "${PIP[@]}" --no-deps --force-reinstall "$STAGE" >/dev/null
+rm -rf "$STAGE" "$BTMP"
 if [ "$TX" = 1 ]; then
   say "installing optional transcription (requirements/transcription.lock)"
   "${PIP[@]}" "${RETRY[@]}" -r "$REPO/requirements/transcription.lock"
@@ -95,7 +100,9 @@ if [ "$TF" = 1 ]; then
   [ -x "$TF_VENV/bin/python" ] || "$PY" -m venv "$TF_VENV"
   "$TF_VENV/bin/python" -m pip install --quiet --disable-pip-version-check --upgrade "pip>=25.1" >/dev/null
   "$TF_VENV/bin/python" -m pip install --quiet --disable-pip-version-check "${RETRY[@]}" -r "$REPO/requirements/tensorflow.lock"
-  "$TF_VENV/bin/python" -m pip install --quiet --disable-pip-version-check --no-deps "$REPO" >/dev/null
+  mkdir -p "$STAGE" "$BTMP"; cp -R "$REPO/pyproject.toml" "$REPO/README.md" "$REPO/LICENSE" "$REPO/src" "$STAGE/"
+  TMPDIR="$BTMP" "$TF_VENV/bin/python" -m pip install --quiet --disable-pip-version-check --no-deps "$STAGE" >/dev/null
+  rm -rf "$STAGE" "$BTMP"
 fi
 
 # 5. Claude Code skill (only its own directory)
