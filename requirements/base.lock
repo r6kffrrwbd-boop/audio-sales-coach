@@ -1,0 +1,6 @@
+# Default install (CPU only, no TensorFlow). Verified on macOS 14.8 Intel (x86_64), Python 3.12.13.
+h5py==3.16.0
+numpy==2.5.5
+scipy==1.18.1
+sherpa-onnx==2.0.1
+sherpa-onnx-core==2.0.1

@@ -1,0 +1,843 @@
+{
+ "warning": "synthetic/licensed audio only; real-world performance on authorized calls is unverified",
+ "detector": {
+  "detector": "yamnet",
+  "clips": 160,
+  "speech_negatives": 4,
+  "classes": {
+   "laughter": {
+    "chosen_threshold_fold1": 0.25,
+    "fold1": {
+     "threshold": 0.25,
+     "tp": 7,
+     "fp": 6,
+     "fn": 1,
+     "precision": 0.538,
+     "recall": 0.875
+    },
+    "fold2_heldout": {
+     "threshold": 0.25,
+     "tp": 7,
+     "fp": 3,
+     "fn": 1,
+     "precision": 0.7,
+     "recall": 0.875
+    },
+    "auc_fold2": 0.969,
+    "false_alarms_on_tts_speech": "0/4",
+    "confused_with": [
+     "crying_baby"
+    ]
+   },
+   "breathing": {
+    "chosen_threshold_fold1": 0.6,
+    "fold1": {
+     "threshold": 0.6,
+     "tp": 7,
+     "fp": 10,
+     "fn": 1,
+     "precision": 0.412,
+     "recall": 0.875
+    },
+    "fold2_heldout": {
+     "threshold": 0.6,
+     "tp": 6,
+     "fp": 11,
+     "fn": 2,
+     "precision": 0.353,
+     "recall": 0.75
+    },
+    "auc_fold2": 0.832,
+    "false_alarms_on_tts_speech": "0/4",
+    "confused_with": [
+     "drinking_sipping",
+     "sneezing",
+     "snoring"
+    ]
+   }
+  }
+ },
+ "scenarios": {
+  "demo_call": {
+   "truth_summary": {
+    "turns": 11,
+    "events": 2,
+    "interruptions": 1,
+    "response_gaps": 1
+   },
+   "duration_s": 101.38,
+   "notes": [],
+   "variants": {
+    "stereo_separate_channels": {
+     "layout": "separate_channels",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 85.4,
+      "attribution_accuracy": 0.985,
+      "accuracy_on_confident_frames": 1.0,
+      "missed_speech_share": 0.015,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 1,
+       "false_detections": 1,
+       "false_detection_times": [
+        46.56
+       ]
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 5,
+     "seconds": 13.24
+    },
+    "mono_mix": {
+     "layout": "mixed_mono",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 85.4,
+      "attribution_accuracy": 0.99,
+      "accuracy_on_confident_frames": 0.997,
+      "missed_speech_share": 0.007,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 1,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 5,
+     "seconds": 11.03
+    },
+    "mono_noisy_snr10": {
+     "layout": "mixed_mono",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 85.4,
+      "attribution_accuracy": 0.997,
+      "accuracy_on_confident_frames": 0.999,
+      "missed_speech_share": 0.002,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 4
+     },
+     "notes": 9,
+     "seconds": 11.95
+    },
+    "mono_noisy_snr5": {
+     "layout": "mixed_mono",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 85.4,
+      "attribution_accuracy": 0.994,
+      "accuracy_on_confident_frames": 0.997,
+      "missed_speech_share": 0.003,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 0
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 2
+     },
+     "notes": 6,
+     "seconds": 10.54
+    },
+    "opus_16k_whatsapp_like": {
+     "layout": "mixed_mono",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 85.4,
+      "attribution_accuracy": 0.962,
+      "accuracy_on_confident_frames": 0.997,
+      "missed_speech_share": 0.035,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 1,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 5,
+     "seconds": 12.36
+    }
+   },
+   "transcript_only_baseline": {
+    "assumption": "oracle transcript with perfect words, speaker labels and timestamps (upper bound for transcript-only coaching); laughter, breathing, pace, pitch and level are not in text",
+    "found": {
+     "client_questions": 1,
+     "interruptions_from_overlapping_timestamps": 1,
+     "response_gaps_from_timestamps": 1,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0,
+     "pitch_or_level_changes": 0
+    },
+    "truth": {
+     "client_questions": 1,
+     "interruptions": 1,
+     "response_gaps": 1,
+     "laughter": 1,
+     "breathing": 1,
+     "pace_changes": 1
+    }
+   },
+   "render_s": 81.9
+  },
+  "similar_voices_call": {
+   "truth_summary": {
+    "turns": 11,
+    "events": 2,
+    "interruptions": 1,
+    "response_gaps": 1
+   },
+   "duration_s": 104.13,
+   "notes": [
+    "two male UK English TTS voices: tests speaker-mistake rate"
+   ],
+   "variants": {
+    "stereo_separate_channels": {
+     "layout": "separate_channels",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 88.1,
+      "attribution_accuracy": 0.969,
+      "accuracy_on_confident_frames": 1.0,
+      "missed_speech_share": 0.031,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 1,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 6,
+     "seconds": 12.14
+    },
+    "mono_mix": {
+     "layout": "mixed_mono",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 88.1,
+      "attribution_accuracy": 0.983,
+      "accuracy_on_confident_frames": 0.998,
+      "missed_speech_share": 0.015,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 1,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 1,
+       "detected": 1,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 1,
+       "found": 1
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 1,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 5,
+     "seconds": 8.92
+    }
+   },
+   "transcript_only_baseline": {
+    "assumption": "oracle transcript with perfect words, speaker labels and timestamps (upper bound for transcript-only coaching); laughter, breathing, pace, pitch and level are not in text",
+    "found": {
+     "client_questions": 1,
+     "interruptions_from_overlapping_timestamps": 1,
+     "response_gaps_from_timestamps": 1,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0,
+     "pitch_or_level_changes": 0
+    },
+    "truth": {
+     "client_questions": 1,
+     "interruptions": 1,
+     "response_gaps": 1,
+     "laughter": 1,
+     "breathing": 1,
+     "pace_changes": 1
+    }
+   },
+   "render_s": 39.6
+  },
+  "arabic_mixed_call": {
+   "truth_summary": {
+    "turns": 6,
+    "events": 0,
+    "interruptions": 0,
+    "response_gaps": 1
+   },
+   "duration_s": 33.4,
+   "notes": [
+    "client lines are Arabic/English code-switched text read by an MSA Arabic TTS voice (not real Lebanese dialect)"
+   ],
+   "variants": {
+    "stereo_separate_channels": {
+     "layout": "separate_channels",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 25.7,
+      "attribution_accuracy": 0.981,
+      "accuracy_on_confident_frames": 1.0,
+      "missed_speech_share": 0.019,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "sales",
+       "S2": "client"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 0,
+       "found": 0
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 2,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 2,
+     "seconds": 3.74
+    },
+    "mono_mix": {
+     "layout": "mixed_mono",
+     "speakers_found": 2,
+     "speaker": {
+      "speech_frames_s": 25.7,
+      "attribution_accuracy": 0.981,
+      "accuracy_on_confident_frames": 1.0,
+      "missed_speech_share": 0.019,
+      "unknown_or_uncertain_share": 0.0,
+      "speakers_found": 2,
+      "role_map": {
+       "S1": "client",
+       "S2": "sales"
+      }
+     },
+     "events": {
+      "laughter": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 0,
+       "found": 0
+      },
+      "response_gaps": {
+       "truth": 1,
+       "found": 1
+      },
+      "client_questions": {
+       "truth": 2,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 2,
+     "seconds": 3.45
+    }
+   },
+   "transcript_only_baseline": {
+    "assumption": "oracle transcript with perfect words, speaker labels and timestamps (upper bound for transcript-only coaching); laughter, breathing, pace, pitch and level are not in text",
+    "found": {
+     "client_questions": 2,
+     "interruptions_from_overlapping_timestamps": 0,
+     "response_gaps_from_timestamps": 1,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0,
+     "pitch_or_level_changes": 0
+    },
+    "truth": {
+     "client_questions": 2,
+     "interruptions": 0,
+     "response_gaps": 1,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0
+    }
+   },
+   "render_s": 16.6
+  },
+  "voice_note": {
+   "truth_summary": {
+    "turns": 3,
+    "events": 0,
+    "interruptions": 0,
+    "response_gaps": 0
+   },
+   "duration_s": 18.63,
+   "notes": [],
+   "variants": {
+    "mono_mix": {
+     "layout": "single_speaker",
+     "speakers_found": 1,
+     "speaker": {
+      "speakers_found": 1,
+      "invented_second_speaker": false
+     },
+     "events": {
+      "laughter": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 0,
+       "found": 0
+      },
+      "response_gaps": {
+       "truth": 0,
+       "found": 0
+      },
+      "client_questions": {
+       "truth": 0,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 1,
+     "seconds": 2.12
+    },
+    "opus_16k_whatsapp_like": {
+     "layout": "single_speaker",
+     "speakers_found": 1,
+     "speaker": {
+      "speakers_found": 1,
+      "invented_second_speaker": false
+     },
+     "events": {
+      "laughter": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 0,
+       "found": 0
+      },
+      "response_gaps": {
+       "truth": 0,
+       "found": 0
+      },
+      "client_questions": {
+       "truth": 0,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 1,
+     "seconds": 2.09
+    },
+    "auto_mode_mono": {
+     "layout": "single_speaker",
+     "speakers_found": 1,
+     "speaker": {
+      "speakers_found": 1,
+      "invented_second_speaker": false
+     },
+     "events": {
+      "laughter": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 0,
+       "found": 0
+      },
+      "response_gaps": {
+       "truth": 0,
+       "found": 0
+      },
+      "client_questions": {
+       "truth": 0,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 1,
+     "seconds": 2.38
+    }
+   },
+   "transcript_only_baseline": {
+    "assumption": "oracle transcript with perfect words, speaker labels and timestamps (upper bound for transcript-only coaching); laughter, breathing, pace, pitch and level are not in text",
+    "found": {
+     "client_questions": 0,
+     "interruptions_from_overlapping_timestamps": 0,
+     "response_gaps_from_timestamps": 0,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0,
+     "pitch_or_level_changes": 0
+    },
+    "truth": {
+     "client_questions": 0,
+     "interruptions": 0,
+     "response_gaps": 0,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0
+    }
+   },
+   "render_s": 11.9
+  },
+  "short_voice_note": {
+   "truth_summary": {
+    "turns": 1,
+    "events": 0,
+    "interruptions": 0,
+    "response_gaps": 0
+   },
+   "duration_s": 4.7,
+   "notes": [],
+   "variants": {
+    "mono_mix": {
+     "layout": "single_speaker",
+     "speakers_found": 1,
+     "speaker": {
+      "speakers_found": 1,
+      "invented_second_speaker": false
+     },
+     "events": {
+      "laughter": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      },
+      "breathing": {
+       "truth": 0,
+       "detected": 0,
+       "false_detections": 0,
+       "false_detection_times": []
+      }
+     },
+     "moments": {
+      "interruptions": {
+       "truth": 0,
+       "found": 0
+      },
+      "response_gaps": {
+       "truth": 0,
+       "found": 0
+      },
+      "client_questions": {
+       "truth": 0,
+       "found": 0
+      },
+      "false_interruptions": 0
+     },
+     "notes": 0,
+     "seconds": 1.46
+    }
+   },
+   "transcript_only_baseline": {
+    "assumption": "oracle transcript with perfect words, speaker labels and timestamps (upper bound for transcript-only coaching); laughter, breathing, pace, pitch and level are not in text",
+    "found": {
+     "client_questions": 0,
+     "interruptions_from_overlapping_timestamps": 0,
+     "response_gaps_from_timestamps": 0,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0,
+     "pitch_or_level_changes": 0
+    },
+    "truth": {
+     "client_questions": 0,
+     "interruptions": 0,
+     "response_gaps": 0,
+     "laughter": 0,
+     "breathing": 0,
+     "pace_changes": 0
+    }
+   },
+   "render_s": 3.3
+  }
+ },
+ "insertion": {
+  "laughter": {
+   "clips": 24,
+   "plain": {
+    "hit": 15,
+    "false_events": 0,
+    "recall": 0.625
+   },
+   "opus16k": {
+    "hit": 13,
+    "false_events": 0,
+    "recall": 0.542
+   }
+  },
+  "breathing": {
+   "clips": 24,
+   "plain": {
+    "hit": 15,
+    "false_events": 0,
+    "recall": 0.625
+   },
+   "opus16k": {
+    "hit": 14,
+    "false_events": 0,
+    "recall": 0.583
+   }
+  },
+  "note": "false_events = laughter/breathing events outside the inserted clip (i.e. on the surrounding TTS speech); a wrong-type event inside the clip window is not counted as a hit"
+ },
+ "machine": "MacBook Pro Intel i7-6700HQ, 16 GB RAM, macOS 14.8, Python 3.12.13, CPU only",
+ "date": "2026-11-16"
+}

@@ -1,0 +1,49 @@
+{
+  "tensorflow": "2.16.2",
+  "numpy": "1.26.4",
+  "keras_mode": "tf_keras",
+  "keras": "3.15.1",
+  "tf_load_s": 1.71,
+  "files": [
+    {
+      "file": "mono.wav",
+      "patches_tf": 211,
+      "patches_np": 211,
+      "max_abs_diff": 1.4901161193847656e-05,
+      "mean_abs_diff": 3.6986702589558718e-09,
+      "top1_agreement": 1.0,
+      "tf_s": 1.57,
+      "np_s": 3.83
+    },
+    {
+      "file": "1-1791-A-26.wav",
+      "patches_tf": 10,
+      "patches_np": 10,
+      "max_abs_diff": 6.4373016357421875e-06,
+      "mean_abs_diff": 6.23343909822438e-09,
+      "top1_agreement": 1.0,
+      "tf_s": 0.23,
+      "np_s": 0.13
+    },
+    {
+      "file": "1-30039-A-26.wav",
+      "patches_tf": 10,
+      "patches_np": 10,
+      "max_abs_diff": 8.702278137207031e-06,
+      "mean_abs_diff": 7.159294490577395e-09,
+      "top1_agreement": 1.0,
+      "tf_s": 0.25,
+      "np_s": 0.12
+    },
+    {
+      "file": "1-18631-A-23.wav",
+      "patches_tf": 10,
+      "patches_np": 10,
+      "max_abs_diff": 1.461803913116455e-05,
+      "mean_abs_diff": 5.031366256957881e-08,
+      "top1_agreement": 1.0,
+      "tf_s": 0.28,
+      "np_s": 0.1
+    }
+  ]
+}
