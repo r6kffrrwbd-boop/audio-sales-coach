@@ -227,7 +227,7 @@ See [docs/evaluation.md](docs/evaluation.md) for all numbers.
   after Opus 16 kbit/s), 0 false events on speech. Breathing is weak: precision 0.35 on isolated clips.
 * Synthetic calls (TTS voices): speaker attribution 96-99.7 % for stereo, mono, noisy, Opus and similar voices;
   voice notes never split into two people; interruptions, response gaps and pace changes found; 2-4 false
-  "possible interruptions" on noisy mono; client questions need transcription (audio-only found 0 of 4).
+  "possible interruptions" on noisy mono (noisy recordings are now flagged and those cues marked uncertain); client questions need transcription (audio-only found 0 of 4).
 * Voice ID on TTS voices: enrolled voice 0.92, other voices 0.25-0.29, roles set automatically.
 * evidence-council: absent → "skipped"; present with no providers → claims checked; with local `ollama:qwen3.5:4b`
   → ran in 222 s, its free-text critique hallucinated issues, which the evidence checks did not accept.

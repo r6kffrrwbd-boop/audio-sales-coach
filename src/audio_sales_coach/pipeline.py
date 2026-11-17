@@ -185,6 +185,9 @@ def analyze(path: str, output_dir: str, cfg: dict, mode: str = "auto", transcrip
 
     # 8. observations and notes
     obs = observations.derive(sres, turns, evs, feats, cfg, dec.duration)
+    snr_vals = [v for v in snr.values() if v is not None]
+    if observations.mark_noise(obs, min(snr_vals) if snr_vals else None):
+        warnings.append("high background noise: pause, gap, interruption, breathing and pace cues are marked uncertain")
     notes = coaching.build_notes(obs, turns, roles, info.path, str(out), transcript is not None, sres.layout)
 
     # 9. role assignment request

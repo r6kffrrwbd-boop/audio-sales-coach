@@ -63,8 +63,11 @@ Findings:
   more errors and more `unknown`. This is the main unverified risk.
 * **Voice messages:** never split into two people (5/5).
 * **Noise:** at SNR ≤ 10 dB the mono pipeline produced 2-4 false *possible interruptions* (noise bridges pauses, so
-  speaker changes appear to have no gap) and lost the response gap at 5 dB. These cues are already marked uncertain
-  on mixed recordings; the report flags low speech-to-background levels.
+  speaker changes appear to have no gap) and lost the response gap at 5 dB. Tried and rejected: suppressing changes
+  that show an energy dip (it halved false alarms but also hid the real interruption on clean, Opus and
+  similar-voice mono). Adopted instead: when speech is < 12 dB above the background, the report warns and marks
+  pause, gap, interruption, breathing and pace cues uncertain (verified on the SNR 10/5 dB variants, which measured
+  6.8 / 3.7 dB; the clean call, 33 dB, is unaffected).
 * **Compression:** Opus 16 kbit/s lowered attribution to 96 % and kept the other cues.
 * **Client questions:** audio-only found 0 of 4 (the TTS questions do not end with rising pitch). Questions need
   the optional transcription.

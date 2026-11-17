@@ -89,3 +89,14 @@ def test_overlapping_reply_to_a_question_is_not_reported_as_missing():
                        {"words_reliable": True, "topics": ["price"]}, "transcript", detector="transcript", turn_ids=["turn-1"])]
     n = coaching.build_notes(obs, turns, ROLES, "/r.wav", None, True, "separate_channels")[0]
     assert "No reply" not in n.interaction and "before the question ended" in n.interaction
+
+
+def test_noise_marks_sensitive_cues_uncertain():
+    from audio_sales_coach.observations import mark_noise
+    from helpers import call_fixture
+    _, obs = call_fixture()
+    assert mark_noise(obs, 20.0) == 0
+    n = mark_noise(obs, 7.0)
+    gap = [o for o in obs if o.type == "response_gap"][0]
+    assert n == 1 and gap.uncertain and "background noise" in gap.uncertainty
+    assert not [o for o in obs if o.type == "question"][0].uncertain

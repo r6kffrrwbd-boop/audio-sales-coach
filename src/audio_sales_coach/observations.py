@@ -373,3 +373,22 @@ def _busiest_window(turns, spk, win, duration):
         if s > best:
             best, best_t = s, float(t0)
     return best_t, best_t + win
+
+
+NOISE_SENSITIVE = ("possible_interruption", "response_gap", "long_pause", "breathing", "pace_change")
+
+
+def mark_noise(obs: list[Observation], speech_to_background_db: float | None, limit_db: float = 12.0) -> int:
+    """On noisy recordings, flag the cues that background noise is known to distort (measured on synthetic calls:
+    noise bridges short pauses, producing false 'possible interruptions' and hiding gaps). Returns how many were marked."""
+    if speech_to_background_db is None or speech_to_background_db >= limit_db:
+        return 0
+    n = 0
+    for o in obs:
+        if o.type in NOISE_SENSITIVE:
+            o.uncertain = True
+            note = (f"background noise is high (speech only {speech_to_background_db:.0f} dB above it), which can hide "
+                    "pauses and create false detections")
+            o.uncertainty = f"{o.uncertainty}; {note}" if o.uncertainty else note
+            n += 1
+    return n
