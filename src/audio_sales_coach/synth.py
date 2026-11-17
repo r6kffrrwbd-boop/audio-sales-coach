@@ -5,6 +5,8 @@
 * `render_scenario()` builds two-person calls and voice notes from text-to-speech (macOS `say`, generated
   locally at test time, never committed) and optionally inserts licensed ESC-50 laughter/breathing clips
   (CC BY-NC 3.0, downloaded to the local cache only; see docs/evaluation.md for attribution).
+  Without macOS `say` (Linux) each line is a `stand_in_voice()`: the same maths as `tone_speech()`, so a whole
+  call can still be rendered and analysed; it has no words, so transcript checks need real voices.
 
 Ground truth (turns, overlaps, inserted events, questions) is written next to each rendering.
 """
@@ -16,6 +18,7 @@ import json
 import shutil
 import subprocess
 import tempfile
+import zlib
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -64,6 +67,26 @@ def tts(text: str, voice: str, rate: int = 180) -> np.ndarray:
     if idx.size:
         x = x[max(0, idx[0] - 160): idx[-1] + 160]
     return x
+
+
+def stand_in_voice(text: str, voice: str, rate: int = 180) -> np.ndarray:
+    """A text-free stand-in for one spoken line, for machines without macOS `say` (Linux).
+
+    Harmonics with a syllable rhythm, as long as the line would take to read at `rate` words a minute, at a
+    steady pitch that depends on the voice name. It carries no words, so nothing transcript-based can be
+    checked with it; voice activity, turns, overlaps, gaps and pitch behave as they do for speech."""
+    words = max(1, len(text.split()))
+    f0 = 105.0 + (zlib.crc32(voice.encode()) % 12) * 10.0
+    return tone_speech(f0, max(0.6, words * 60.0 / rate), syll_rate=rate / 45.0, seed=zlib.crc32(text.encode()) % 1000)
+
+
+def speak_line(text: str, voice: str, rate: int = 180) -> np.ndarray:
+    """One line of a scenario: macOS `say` when it is there, the stand-in voice otherwise."""
+    return tts(text, voice, rate) if have_tts() else stand_in_voice(text, voice, rate)
+
+
+def voice_source() -> str:
+    return "macOS say" if have_tts() else "stand-in tones (no text-to-speech on this machine)"
 
 
 # ---------------------------------------------------------------- ESC-50 (licensed, optional)
@@ -203,7 +226,8 @@ def render_scenario(sc: Scenario, out_dir: Path, use_esc50: bool = True, seed: i
     chans = {"sales": [], "client": []}
     t = 0.5
     truth = {"scenario": sc.name, "voices": sc.voices, "single_speaker": sc.single_speaker, "turns": [], "events": [],
-             "interruptions": [], "response_gaps": [], "notes": list(sc.notes), "sr": SR}
+             "interruptions": [], "response_gaps": [], "notes": list(sc.notes), "sr": SR,
+             "voice_source": voice_source()}
     prev_end = {"sales": 0.0, "client": 0.0}
     last = None
     esc_used = []
@@ -225,7 +249,7 @@ def render_scenario(sc: Scenario, out_dir: Path, use_esc50: bool = True, seed: i
             last = {"speaker": ln.speaker, "end": start + x.size / SR}
             continue
         voice = sc.voices[ln.speaker]
-        x = tts(ln.text, voice, ln.rate)
+        x = speak_line(ln.text, voice, ln.rate)
         if ln.cut_previous_after is not None and last is not None:
             # previous speaker yields: cut their audio cut_previous_after seconds after our onset
             ps = last["speaker"]

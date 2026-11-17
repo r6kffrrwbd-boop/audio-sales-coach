@@ -41,20 +41,20 @@ say() { printf '==> %s\n' "$*"; }
 die() { printf 'error: %s\n' "$1" >&2; [ -n "${2:-}" ] && printf 'hint: %s\n' "$2" >&2; exit "${3:-1}"; }
 
 # 0. system prerequisites
-command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1 || die "ffmpeg/ffprobe not found" "brew install ffmpeg" 3
+command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1 || die "ffmpeg/ffprobe not found" "macOS: brew install ffmpeg   Debian/Ubuntu: sudo apt install ffmpeg" 3
 command -v curl >/dev/null 2>&1 || die "curl not found" "install curl" 3
 say "machine: $(uname -s) $(uname -m); ffmpeg $(ffmpeg -version | head -1 | awk '{print $3}')"
 
-# 1. Python 3.10-3.12 (the pinned wheels are verified on 3.12)
+# 1. Python 3.10-3.13 (the pinned wheels are verified on 3.12 on macOS and on 3.13 on Debian 13)
 PY="${ASC_PYTHON:-}"
 if [ -z "$PY" ]; then
-  for c in python3.12 python3.11 python3.10 python3; do
-    if command -v "$c" >/dev/null 2>&1 && "$c" -c 'import sys; raise SystemExit(0 if (3,10) <= sys.version_info[:2] <= (3,12) else 1)' 2>/dev/null; then
+  for c in python3.12 python3.13 python3.11 python3.10 python3; do
+    if command -v "$c" >/dev/null 2>&1 && "$c" -c 'import sys; raise SystemExit(0 if (3,10) <= sys.version_info[:2] <= (3,13) else 1)' 2>/dev/null; then
       PY="$(command -v "$c")"; break
     fi
   done
 fi
-[ -n "$PY" ] || die "Python 3.10-3.12 not found" "brew install python@3.12, or set ASC_PYTHON=/path/to/python3.12"
+[ -n "$PY" ] || die "Python 3.10-3.13 not found" "macOS: brew install python@3.12   Debian/Ubuntu: sudo apt install python3 python3-venv   (or set ASC_PYTHON=/path/to/python3)"
 say "Python: $PY ($("$PY" -c 'import platform; print(platform.python_version())'))"
 
 # 2. isolated environment
@@ -62,7 +62,7 @@ mkdir -p "$DATA_DIR"; chmod 700 "$DATA_DIR"
 if [ ! -x "$VENV/bin/python" ] || ! "$VENV/bin/python" -c 'import sys' >/dev/null 2>&1; then
   say "creating virtual environment at $VENV"
   rm -rf "$VENV"
-  "$PY" -m venv "$VENV"
+  "$PY" -m venv "$VENV" || die "could not create the virtual environment" "Debian/Ubuntu: sudo apt install python3-venv"
 else
   say "reusing virtual environment at $VENV"
 fi

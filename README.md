@@ -20,7 +20,8 @@ upload, no Hugging Face login.
 
 ## Install
 
-Requirements: macOS or Linux, Python 3.10-3.12, `ffmpeg` (`brew install ffmpeg`), `curl`.
+Requirements: macOS or Linux, Python 3.10-3.13, `ffmpeg` (macOS: `brew install ffmpeg`; Debian/Ubuntu:
+`sudo apt install ffmpeg python3-venv`), `curl`.
 
 ```bash
 git clone https://github.com/r6kffrrwbd-boop/audio-sales-coach.git

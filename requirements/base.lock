@@ -1,4 +1,5 @@
-# Default install (CPU only, no TensorFlow). Verified on macOS 14.8 Intel (x86_64), Python 3.12.13.
+# Default install (CPU only, no TensorFlow). Verified on macOS 14.8 Intel (x86_64), Python 3.12.13,
+# and on Debian 13 (x86_64), Python 3.13.5.
 h5py==3.16.0
 numpy==2.5.5
 scipy==1.18.1

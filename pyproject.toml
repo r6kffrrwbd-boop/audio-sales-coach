@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Local, consent-first coaching for salespeople from authorized call recordings and voice messages: measures audio cues (pauses, pace, pitch/energy, interruptions, laughter, breathing) and drafts replayable, evidence-linked coaching notes."
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10,<3.14"
 authors = [{ name = "audio-sales-coach contributors" }]
 dependencies = [
   # Exact, tested pins live in requirements/*.lock; these ranges keep `pip install .` working.

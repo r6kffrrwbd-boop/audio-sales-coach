@@ -64,7 +64,7 @@ class Decoded:
 def require_ffmpeg() -> tuple[str, str]:
     ff, fp = shutil.which("ffmpeg"), shutil.which("ffprobe")
     if not ff or not fp:
-        raise AudioError("ffmpeg/ffprobe not found. Install with: brew install ffmpeg")
+        raise AudioError("ffmpeg/ffprobe not found. Install it (macOS: brew install ffmpeg; Debian/Ubuntu: sudo apt install ffmpeg)")
     return ff, fp
 
 

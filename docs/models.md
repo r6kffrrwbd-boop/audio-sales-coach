@@ -3,6 +3,9 @@
 All defaults run on CPU, need no paid API, no cloud upload and no account or Hugging Face login.
 Verified on: MacBook Pro, Intel Core i7-6700HQ (4 cores, AVX2), 16 GB RAM, macOS 14.8 (Darwin 23.6), Python 3.12.13,
 ffmpeg 8.1 (Homebrew).
+Also checked on Debian 13.7 (x86_64, in a container), Python 3.13.5, ffmpeg 7.1.5: the same pinned libraries install,
+the test suite passes, and a synthetic two-person call gives the same notes at the same times as on the Mac
+(audio-only; transcription was not tried there).
 
 ## Default components (installed by `./install.sh`)
 

@@ -64,35 +64,34 @@ def run(verbose: bool = True) -> int:
         except events.DetectorUnavailable as e:
             res.append(_ok("event detector", False, str(e)))
         # 3. full analysis of a synthetic two-person call and a voice note
-        if synth.have_tts():
-            from .pipeline import analyze
-            truth = synth.render_scenario(_short_call(), td / "call", use_esc50=False)
-            rep = analyze(str(td / "call" / "stereo.wav"), str(td / "rep-call"), cfg, mode="call", transcription="off",
-                          log=lambda *a: None)
-            types = {o["type"] for o in rep["observations"]}
-            res.append(_ok("two-party call: separate channels found", rep["layout"]["result"] == "separate_channels"))
-            res.append(_ok("two-party call: interruption observed", "interruption" in types, ", ".join(sorted(types))))
-            res.append(_ok("two-party call: response gap observed", "response_gap" in types))
-            notes = rep["coaching_notes"]
-            need = ("timestamp", "play", "speaker", "cue", "interaction", "suggestion", "words_status")
-            res.append(_ok("notes have every required field", notes and all(all(k in n for k in need) for n in notes),
-                           f"{len(notes)} notes"))
-            res.append(_ok("notes reference the ORIGINAL recording",
-                           all(n["play"]["uri"].startswith("file://") and "stereo.wav#t=" in n["play"]["uri"] for n in notes)))
-            bad = [coaching.guard_text(n["interaction"] + n["suggestion"] + n["cue"]["description"]) for n in notes]
-            res.append(_ok("no emotion/manipulation wording", not any(bad), str(bad)))
-            res.append(_ok("council review ran or was skipped cleanly",
-                           rep["council"]["status"] in ("reviewed", "skipped"),
-                           f"{rep['council']['status']}: {rep['council'].get('reason') or rep['council'].get('verdict_status')}"))
-            vn = synth.render_scenario(synth.short_voice_note(), td / "vn", use_esc50=False)
-            audio_io.encode(td / "vn" / "mono.wav", td / "vn" / "note.ogg", "opus", "16k")
-            rep2 = analyze(str(td / "vn" / "note.ogg"), str(td / "rep-vn"), cfg, mode="auto", transcription="off",
-                           council_mode="off", log=lambda *a: None)
-            res.append(_ok("voice note (Opus): one speaker, no invented second person",
-                           len(rep2["speakers"]) == 1 and "client" not in rep2["views"], rep2["layout"]["result"]))
-            _ = truth, vn
-        else:
-            res.append(_ok("TTS-based analysis (macOS `say`)", True, "skipped: not on macOS"))
+        # (macOS `say` voices when present; otherwise a text-free stand-in voice, so this runs on Linux too)
+        res.append(_ok("test voices", True, synth.voice_source()))
+        from .pipeline import analyze
+        truth = synth.render_scenario(_short_call(), td / "call", use_esc50=False)
+        rep = analyze(str(td / "call" / "stereo.wav"), str(td / "rep-call"), cfg, mode="call", transcription="off",
+                      log=lambda *a: None)
+        types = {o["type"] for o in rep["observations"]}
+        res.append(_ok("two-party call: separate channels found", rep["layout"]["result"] == "separate_channels"))
+        res.append(_ok("two-party call: interruption observed", "interruption" in types, ", ".join(sorted(types))))
+        res.append(_ok("two-party call: response gap observed", "response_gap" in types))
+        notes = rep["coaching_notes"]
+        need = ("timestamp", "play", "speaker", "cue", "interaction", "suggestion", "words_status")
+        res.append(_ok("notes have every required field", notes and all(all(k in n for k in need) for n in notes),
+                       f"{len(notes)} notes"))
+        res.append(_ok("notes reference the ORIGINAL recording",
+                       all(n["play"]["uri"].startswith("file://") and "stereo.wav#t=" in n["play"]["uri"] for n in notes)))
+        bad = [coaching.guard_text(n["interaction"] + n["suggestion"] + n["cue"]["description"]) for n in notes]
+        res.append(_ok("no emotion/manipulation wording", not any(bad), str(bad)))
+        res.append(_ok("council review ran or was skipped cleanly",
+                       rep["council"]["status"] in ("reviewed", "skipped"),
+                       f"{rep['council']['status']}: {rep['council'].get('reason') or rep['council'].get('verdict_status')}"))
+        vn = synth.render_scenario(synth.short_voice_note(), td / "vn", use_esc50=False)
+        audio_io.encode(td / "vn" / "mono.wav", td / "vn" / "note.ogg", "opus", "16k")
+        rep2 = analyze(str(td / "vn" / "note.ogg"), str(td / "rep-vn"), cfg, mode="auto", transcription="off",
+                       council_mode="off", log=lambda *a: None)
+        res.append(_ok("voice note (Opus): one speaker, no invented second person",
+                       len(rep2["speakers"]) == 1 and "client" not in rep2["views"], rep2["layout"]["result"]))
+        _ = truth, vn
     failed = [r for r in res if not r["ok"]]
     for r in res:
         say(f"  [{'ok' if r['ok'] else 'FAIL'}] {r['check']}" + (f" - {r['detail']}" if r["detail"] else ""))
